@@ -1,53 +1,52 @@
-# mgu-krikun — Xray, интернет и YouTube на BMW iDrive 7 (MGU)
+# mgu-krikun — единый каталог MGU + Xray
 
-Личный контур с нуля: [maxkrikoun-gif/mgu-krikun](https://github.com/maxkrikoun-gif), SSH **`~/.ssh/mgu_krikun`** ([docs/project-identity.md](docs/project-identity.md)).
+Личный контур: [maxkrikoun-gif/mgu-krikun](https://github.com/maxkrikoun-gif) (private), SSH **`~/.ssh/mgu_krikun`** ([docs/project-identity.md](docs/project-identity.md)).
 
-**WireGuard на машине не используем.** Обход — **Xray (VLESS/Reality)** с хаба **fr74** (Amnezia), клиент на ГУ в режиме SOCKS (как задумано в [docs/xray-on-hu-design.md](docs/xray-on-hu-design.md)).
+**В MGU Store добавляется только этот репозиторий** (плюс сам Store с `robertnisipeanu/mgu-store`, если его ещё нет). RideTube, **krikun-xray** и все приложения — **внутри** `mgu-krikun`, не отдельными источниками: [docs/store-single-source.md](docs/store-single-source.md).
+
+**Правило русификации:** всё, что мы кладём в репо и catalog, — **полностью на русском** (меню, Store, tools). Не «одно приложение», а **каждый** компонент. [docs/russian-only.md](docs/russian-only.md) · [CONSTRAINTS.md](CONSTRAINTS.md).
+
+Обход блокировок — **Xray (VLESS/Reality)** с **fr74** (Amnezia), SOCKS на ГУ ([docs/xray-on-hu-design.md](docs/xray-on-hu-design.md)).
 
 ## Цели
 
-- **mgu-uplink** — интернет с телефона (USB / hotspot).
-- **krikun-xray** (в разработке) — Xray на ГУ, SOCKS `127.0.0.1:1080` → fr74.
-- **RideTube** — YouTube через тот же proxy, что и Store.
+- **mgu-uplink** — интернет с телефона.
+- **krikun-xray** (tool) и **krikun_seti** (app «Krikun: сеть») — **отдельно** от YouTube, см. [docs/krikun-client.md](docs/krikun-client.md).
+- **RideTube** (`jap_ridetube` + `jap-ridetube-d`) — **отдельное** приложение и сервис; в catalog свой `.tgz`, без зависимости от krikun-xray. [docs/components-separate.md](docs/components-separate.md).
+- RU-приложения — из **одного** catalog этого репо.
 - Секреты Amnezia **не** в git.
 
-## Что поставить в Store сейчас
+## Store на ГУ
 
-| Шаг | Источник | Что ставить |
-|-----|----------|-------------|
-| 1 | `robertnisipeanu/mgu-store` | Store, **mgu-uplink**, updater, deploy |
-| 2 | `JustAnotherPU/ridetube` → **Releases** | RideTube (+ node22 и сервисы) |
-| 3 | `maxkrikoun-gif/mgu-krikun` → **Releases** | **krikun-xray** (когда появится catalog) |
-| опционально | `DarkMuse1/idrive7-apps-ru` | русские приложения |
+```text
+Добавить источник → maxkrikoun-gif/mgu-krikun
+(для private — GitHub token в настройках Store)
+```
 
-**jap-wireproxy / WireGuard не нужны.**
+Детали: [docs/store-sources.md](docs/store-sources.md). Первый запуск на ГУ: [docs/first-run-hu.md](docs/first-run-hu.md).
 
-Подробно: [docs/store-sources.md](docs/store-sources.md).
-
-## Цепочка без WG
+## Цепочка сети
 
 ```text
 Телефон → mgu-uplink
               ↓
-         krikun-xray (SOCKS 127.0.0.1:1080 → VLESS fr74)
+         krikun-xray (SOCKS → VLESS fr74)
               ↓
          proxy в updater.local.conf
               ↓
-         RideTube / Store
+         RideTube / загрузки Store
 ```
 
-Пошагово: [docs/xray-on-hu-design.md](docs/xray-on-hu-design.md).
-
-Пример конфига: [config/examples/xray-config.json.example](config/examples/xray-config.json.example).
+Пример Xray: [config/examples/xray-config.json.example](config/examples/xray-config.json.example).
 
 ## Amnezia
 
-Экспортируйте **Xray JSON** из Amnezia, не `vpn://`. Файлы `*.vpn` — только локально на Mac/ГУ.
+Экспорт **Xray JSON**, не `vpn://`. Файлы `*.vpn` — только локально.
 
-## Репозиторий на GitHub
+## GitHub
 
-Инструкция: [docs/github-create.md](docs/github-create.md).
+[docs/github-create.md](docs/github-create.md).
 
 ## Лицензия
 
-MIT — файлы этого репо. RideTube, MGU Store, Xray-core — лицензии upstream.
+MIT — обвязка этого репо. Upstream (Store, RideTube, idrive7-apps-ru, Xray-core) — их лицензии.

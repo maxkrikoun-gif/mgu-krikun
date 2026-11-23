@@ -1,0 +1,45 @@
+{
+  "id": "krikun-xray",
+  "kind": "tool",
+  "version": "0.0.1",
+  "license": "MIT",
+  "title": "Krikun Xray",
+  "description": "Xray SOCKS5 на 127.0.0.1:1080 для обхода блокировок (VLESS/Reality). Конфиг только на ГУ, импорт с USB или из приложения «Krikun: сеть».",
+  "requires": {
+    "mgu-deploy": "0.7.0",
+    "mgu-updater": "0.8.40"
+  },
+  "uninstallable": true,
+  "internet": true,
+  "uids": [3922],
+  "mguHmi": ["ID7"],
+  "texts": {
+    "ru": {
+      "title": "Krikun Xray",
+      "description": "Локальный прокси 127.0.0.1:1080 через Xray до вашего сервера (fr74)."
+    }
+  },
+  "files": [
+    { "path": "xray", "from": "build/xray", "mode": "0755" },
+    { "path": "krikun-runas", "from": "build/krikun-runas", "mode": "0755" },
+    { "path": "start.sh", "from": "start.sh", "mode": "0755" },
+    { "path": "setup.sh", "from": "setup.sh", "mode": "0755" },
+    { "path": "import-config.sh", "from": "import-config.sh", "mode": "0755" },
+    { "path": "check.sh", "from": "check.sh", "mode": "0755" },
+    { "path": "enable-proxy.sh", "from": "enable-proxy.sh", "mode": "0755" },
+    { "path": "disable-proxy.sh", "from": "disable-proxy.sh", "mode": "0755" },
+    { "path": "netctl.sh", "from": "netctl.sh", "mode": "0755" },
+    { "path": "request-processor.sh", "from": "request-processor.sh", "mode": "0755" }
+  ],
+  "check": ["check.sh"],
+  "units": [
+    { "name": "krikun-xray.service", "from": "systemd/krikun-xray.service" },
+    { "name": "krikun-xray-ctl.service", "from": "systemd/krikun-xray-ctl.service" }
+  ],
+  "enable": [
+    { "unit": "krikun-xray.service", "target": "multi-user.target" },
+    { "unit": "krikun-xray-ctl.service", "target": "multi-user.target" }
+  ],
+  "recmgr": ["krikun-xray"],
+  "restart": ["krikun-xray.service", "krikun-xray-ctl.service"]
+}

@@ -1,6 +1,4 @@
-# Сеть на ГУ: uplink + Xray (без WireGuard)
-
-Этот проект **не использует WireGuard** на головном устройстве.
+# Сеть на ГУ: uplink + Xray
 
 ## Схема
 
@@ -28,7 +26,3 @@ grep '^proxy' /var/opt/mgu-updater/updater.local.conf
 ```
 
 В машине: RideTube → **Health check**.
-
-## Устаревшее
-
-Раньше рассматривали **jap-wireproxy** (WireGuard). Для fr74 на **Xray** этот путь **не нужен**. Примеры wireproxy в `config/examples/` оставлены как справка, не для установки.

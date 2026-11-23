@@ -1,6 +1,0 @@
-# /var/opt/jap-wireproxy/conf/settings
-# ENDPOINT — вне дома; HOME_* — если домашний Wi‑Fi на машине
-
-ENDPOINT=vpn.example.com:51820
-HOME_SSID=MyHomeWiFi
-HOME_ENDPOINT=192.168.1.100:51820

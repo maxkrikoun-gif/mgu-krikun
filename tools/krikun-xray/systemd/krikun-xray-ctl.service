@@ -1,0 +1,14 @@
+[Unit]
+Description=Krikun Xray: обработка запросов приложения «Сеть» (импорт, старт, стоп)
+After=network.target
+RequiresMountsFor=/var/opt
+
+[Service]
+ExecStart=/var/opt/krikun-xray/current/request-processor.sh
+Restart=always
+RestartSec=3
+RuntimeDirectory=krikun-xray
+RuntimeDirectoryMode=0755
+
+[Install]
+WantedBy=multi-user.target

@@ -1,7 +1,56 @@
 {
   "schema": 1,
-  "comment": "Заглушка: полноценный каталог появится с релизом catalog. Пока используйте источники из docs/store-sources.md",
-  "apps": {},
-  "tools": {},
-  "components": []
+  "comment": "Единый Store-источник. RideTube: apps/jap_ridetube + native/jap-ridetube-d. docs/components-separate.md",
+  "apps": {
+    "path": "apps/*",
+    "manifest": "app.json",
+    "icon": "icon.png",
+    "exclude": []
+  },
+  "tools": [
+    {
+      "id": "krikun-xray",
+      "path": "tools/krikun-xray"
+    },
+    {
+      "id": "jap-ridetube-d",
+      "path": "native/jap-ridetube-d"
+    }
+  ],
+  "components": [
+    {
+      "id": "krikun_seti",
+      "kind": "app",
+      "path": "apps/krikun_seti",
+      "manifest": "app.json",
+      "mguHmi": ["ID7"],
+      "requires": {
+        "krikun-xray": "0.0.1",
+        "idrive7-renderd": "2.1.10",
+        "mgu-inputgate": "1.0.0"
+      },
+      "texts": {
+        "ru": {
+          "title": "Krikun: сеть",
+          "description": "Клиент Xray: импорт с USB, вкл/выкл обхода, статус."
+        }
+      }
+    },
+    {
+      "id": "jap_ridetube",
+      "kind": "app",
+      "path": "apps/jap_ridetube",
+      "manifest": "app.json",
+      "mguHmi": ["ID7"],
+      "requires": {
+        "jap-ridetube-d": "0.5.4"
+      },
+      "texts": {
+        "ru": {
+          "title": "YouT",
+          "description": "YouTube в машине (YouT). Язык по умолчанию — русский."
+        }
+      }
+    }
+  ]
 }

@@ -1,47 +1,48 @@
-# Источники MGU Store (без WireGuard)
+# Источники MGU Store (только свой каталог)
 
-## Целевой стек
+## На машине в Store
 
-| Компонент | Откуда | Зачем |
-|-----------|--------|--------|
-| Store + uplink | `robertnisipeanu/mgu-store` | магазин и **интернет с телефона** |
-| RideTube | `JustAnotherPU/ridetube` (Releases) | YouTube |
-| Xray на ГУ | `maxkrikoun-gif/mgu-krikun` (Releases, позже) | SOCKS → fr74 (VLESS/Reality) |
+| Что | Источник в UI | Примечание |
+|-----|---------------|------------|
+| MGU Store, uplink, deploy | `robertnisipeanu/mgu-store` | сам магазин (если ещё не стоит) |
+| **Всё остальное** | **`maxkrikoun-gif/mgu-krikun`** | единственный **добавляемый** каталог |
 
-**WireGuard / `JustAnotherPU/mgu-apps` / jap-wireproxy не ставим.**
+Строка в «Добавить источник»:
 
-## RideTube
+```text
+maxkrikoun-gif/mgu-krikun
+```
 
-[JustAnotherPU/ridetube](https://github.com/JustAnotherPU/ridetube) — клиент YouTube для iDrive 7:
+Больше **никаких** `DarkMuse1/...`, `JustAnotherPU/...` и т.п.
 
-- нужен **mgu-uplink**;
-- в РФ нужен **proxy** в `updater.local.conf` (через локальный Xray);
-- **Health check** в меню приложения.
+Подробно: [store-single-source.md](store-single-source.md).
 
-## mgu-uplink
+## Что должно быть внутри `mgu-krikun`
 
-Не VPN. Раздаёт интернет выбранным процессам с телефона / LTE / Wi‑Fi hotspot.
+| Компонент | Откуда берём в git (не в Store) | Зачем |
+|-----------|----------------------------------|-------|
+| **krikun-xray** | `tools/krikun-xray` | SOCKS → fr74 (**отдельный** tool) |
+| **krikun_seti** | `apps/krikun_seti` | UI обхода (**отдельное** app) |
+| **RideTube** app + **jap-ridetube-d** | `apps/jap_ridetube`, `native/jap-ridetube-d`, RU default | YouTube (**не** часть Xray) |
+| Прочие RU apps | **DarkMuse1/idrive7-apps-ru**, сборка `ru` | community-приложения |
 
-RideTube без uplink не выйдет в сеть.
+Связь Xray ↔ RideTube только через `proxy = socks5://127.0.0.1:1080` — [components-separate.md](components-separate.md).
 
-## Proxy (Store + RideTube)
+**Правило:** [russian-only.md](russian-only.md) — **все** пункты меню и тексты Store для **каждого** пакета из нашего catalog.
 
-Один файл на ГУ: `/var/opt/mgu-updater/updater.local.conf`
+Пока catalog не опубликован — в Store только документация; релиз **`catalog`** — когда русификация проверена на **всём** наборе.
+
+## Proxy
+
+`/var/opt/mgu-updater/updater.local.conf`:
 
 ```ini
 proxy = socks5://127.0.0.1:1080
 ```
 
-(порт как у **krikun-xray**; Store → Settings → Proxy — то же значение)
+## Порядок на ГУ
 
-RideTube читает этот файл автоматически.
-
-## Порядок установки
-
-1. **mgu-uplink** (уже с Store).
-2. **krikun-xray** — когда выложен релиз в этом репо; конфиг из Amnezia (Xray JSON) на ГУ.
-3. Прописать **proxy** (см. выше).
-4. Телефон, тетеринг → uplink online.
-5. **JustAnotherPU/ridetube** → RideTube → Health check.
-
-Дизель 3.0 на YouTube/Xray не влияет.
+1. Store + **mgu-uplink** (robertnisipeanu, если нужно).
+2. Один источник **`maxkrikoun-gif/mgu-krikun`** + token для private.
+3. Установить **krikun-xray**, прописать proxy, поднять uplink.
+4. Из того же источника — **RideTube** и нужные RU-приложения.

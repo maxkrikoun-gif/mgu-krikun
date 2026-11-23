@@ -45,6 +45,7 @@ git -C /Users/m.krikun/bmw remote -v
 ## MGU / секреты
 
 - VPN/Xray — не в git
-- Store-источник: `maxkrikoun-gif/mgu-krikun`
+- В Store **один** пользовательский источник: `maxkrikoun-gif/mgu-krikun` (всё внутри; **каждый** компонент — русские меню: [russian-only.md](russian-only.md))
+- Репозиторий **private** → в MGU Store **Settings** нужен **GitHub Personal Access Token** (read доступ к repo), иначе catalog/assets не скачаются
 
-Создание репо: [github-create.md](github-create.md).
+Создание репо: [github-create.md](github-create.md). Каталог: [store-single-source.md](store-single-source.md).

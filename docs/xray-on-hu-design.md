@@ -4,12 +4,12 @@
 
 ГУ iDrive 7:
 
-- **linux/amd64** (см. сборка jap-wireproxy: `GOARCH=amd64`);
+- **linux/amd64** (сборка tool: `GOARCH=amd64`, как у других пакетов mgu-deploy);
 - **нет TUN в ядре**, только подписанные модули — полноценный `tun`/`xray tun` как на обычном Linux **нельзя**;
 - интернет у сторонних сервисов — только через **mgu-uplink** (отдельный uid, `"internet": true` в `component.json`);
 - произвольные systemd-юниты без **mgu-deploy** опасны (recmgr, safe mode).
 
-Вывод: Xray на ГУ возможен в режиме **как wireproxy** — **локальный SOCKS5/HTTP inbound**, трафик в VPS по **VLESS/VMess/Reality**, без TUN.
+Вывод: на ГУ нужен **локальный SOCKS5/HTTP inbound**, трафик на VPS по **VLESS/VMess/Reality**, без TUN.
 
 ## Целевая схема
 
@@ -23,25 +23,19 @@ RideTube / Store  →  proxy socks5://127.0.0.1:1080
                      mgu-uplink (uid сервиса) → телефон/LTE
 ```
 
-**WireGuard на машине не используем** — только Xray на ГУ (вариант ниже).
+## Tool для MGU Store (черновик ТЗ)
 
-## Выбранный вариант
+Идентификатор: **`krikun-xray`** (свой префикс).
 
-**Xray на ГУ** — tool `krikun-xray`, конфиг как в Amnezia (VLESS/Reality), без jap-wireproxy.
-
-## Вариант 2: tool для MGU Store (черновик ТЗ)
-
-Идентификатор, например: `krikun-xray` (префикс свой, не пересекать `jap-*`).
-
-По образцу `tools/jap-wireproxy` в [mgu-apps](https://github.com/JustAnotherPU/mgu-apps):
+По образцу **mgu-deploy tools** в экосистеме Store (например [mgu-apps](https://github.com/JustAnotherPU/mgu-apps)):
 
 | Элемент | Содержание |
 |---------|------------|
 | Бинарник | [Xray-core](https://github.com/XTLS/Xray-core) `linux-64`, статическая сборка, pin версии |
 | Конфиг | `/var/opt/krikun-xray/conf/config.json` (права root:uid, 0640) |
-| Inbound | `socks`, `listen: 127.0.0.1`, `port: 1080` (или 1065 — как у wireproxy) |
+| Inbound | `socks`, `listen: 127.0.0.1`, `port: 1080` |
 | Outbound | VLESS/Reality из экспорта Amnezia (uuid, host, port, pbk, sid, flow, sni) |
-| Supervisor | Ждёт `mgu-uplink` online (как wireproxy + `status.json`) |
+| Supervisor | Ждёт `mgu-uplink` online (по `status.json`, как у других сетевых tools) |
 | `component.json` | `"internet": true`, uid, `MemoryLimit`, без лишних capabilities |
 | Store | Releases + `catalog.json` в репо `maxkrikoun-gif/mgu-krikun` |
 
@@ -93,9 +87,9 @@ RideTube / Store  →  proxy socks5://127.0.0.1:1080
 proxy = socks5://127.0.0.1:1080
 ```
 
-## MTU = 1400
+## MTU и LTE
 
-Для **Xray over TCP/Reality** это не WG `Interface MTU`. При обрывах на LTE — тюнинг uplink/сервера; при необходимости `sockopt` в outbound Xray. Стартовать можно с дефолтов Amnezia.
+Для **Xray over TCP/Reality** отдельный MTU туннеля на ГУ не настраиваем. При обрывах на LTE — тюнинг uplink/сервера; при необходимости `sockopt` в outbound Xray. Стартовать можно с дефолтов Amnezia.
 
 ## Проверки
 
@@ -116,7 +110,7 @@ SSH root, **вручную** (вне Store — на свой риск, не в r
 2. Запустить от uid с доступом uplink.
 3. Проверить SOCKS → YouTube.
 
-Если POC ок — перенос в **mgu-deploy tool**, как wireproxy.
+Если POC ок — оформить **mgu-deploy tool** в каталоге этого репо.
 
 ## Рекомендация
 
@@ -124,5 +118,3 @@ SSH root, **вручную** (вне Store — на свой риск, не в r
 2. POC SOCKS на ГУ (ручной запуск).
 3. Оформить `krikun-xray` в `maxkrikoun-gif/mgu-krikun` + catalog release.
 4. RideTube: `proxy = socks5://127.0.0.1:1080`.
-
-WireGuard на машине **не планируется** — только VLESS на fr74.

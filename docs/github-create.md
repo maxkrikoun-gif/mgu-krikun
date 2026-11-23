@@ -15,7 +15,7 @@
 cd /Users/m.krikun/bmw
 git init -b main
 git add -A
-git commit -m "docs: MGU uplink, wireproxy, RideTube chain"
+git commit -m "docs: MGU uplink, Xray, RideTube chain"
 git remote add origin git@github.com-mgu-krikun:maxkrikoun-gif/mgu-krikun.git
 git push -u origin main
 ```
@@ -28,4 +28,4 @@ git diff --cached
 # В индексе НЕ должно быть *.vpn и ключей
 ```
 
-В Store источник `maxkrikoun-gif/mgu-krikun` имеет смысл после первого **Releases/catalog** с приложением; пока достаточно документации и ручной настройки по `vpn-chain.md`.
+В Store добавляется **только** `maxkrikoun-gif/mgu-krikun` (см. [store-single-source.md](store-single-source.md)). Подключать источник — после первого релиза **`catalog`** или когда repo-tree с `vendor/*` готов.

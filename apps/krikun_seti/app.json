@@ -1,0 +1,63 @@
+{
+  "id": "krikun_seti",
+  "title": "Krikun: сеть",
+  "description": "Включение обхода, импорт Xray с USB, статус прокси для RideTube",
+  "version": "0.0.1",
+  "vendor": "krikun",
+  "loggingId": "KNET",
+  "iconGlyph": "network",
+  "mguHmi": ["ID7"],
+  "mguInternet": true,
+  "requires": {
+    "krikun-xray": "0.0.1",
+    "mgu-inputgate": "1.0.0",
+    "idrive7-renderd": "2.1.10"
+  },
+  "screens": [
+    {
+      "name": "MAIN",
+      "kind": "canvas",
+      "title": "Сеть",
+      "buttons": [
+        ["BTN_PAGE", "Импорт USB"],
+        ["BTN_SETTINGS", "Тест связи"],
+        ["BTN_EXIT", "Закрыть"]
+      ]
+    },
+    {
+      "name": "TEST",
+      "kind": "canvas",
+      "title": "Проверка",
+      "buttons": [
+        ["BTN_PAGE", "Назад"],
+        ["BTN_SETTINGS", "Запустить"],
+        ["BTN_CANCEL", "Остановить"],
+        ["BTN_EXIT", "Закрыть"]
+      ]
+    },
+    {
+      "name": "IMPORT",
+      "kind": "canvas",
+      "title": "Импорт",
+      "buttons": [
+        ["BTN_PAGE", "Назад"],
+        ["BTN_SETTINGS", "Выбрать файл"],
+        ["BTN_EXIT", "Закрыть"]
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "key": "autoProxy",
+      "label": "Включать proxy для RideTube при старте обхода",
+      "type": "bool",
+      "default": true
+    }
+  ],
+  "texts": {
+    "ru": {
+      "title": "Krikun: сеть",
+      "description": "Обход блокировок через Xray (fr74). Импорт с USB, без ввода ключа на экране."
+    }
+  }
+}

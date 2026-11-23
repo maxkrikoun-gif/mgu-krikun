@@ -1,0 +1,29 @@
+[Unit]
+Description=Krikun Xray: SOCKS5 127.0.0.1:1080 (VLESS/Reality client, userspace)
+After=network.target mgu-uplink.service
+RequiresMountsFor=/var/opt
+
+[Service]
+ExecStartPre=/bin/sh /var/opt/krikun-xray/current/setup.sh
+ExecStart=/var/opt/krikun-xray/current/krikun-runas 3922 /var/opt/krikun-xray/current/start.sh
+RuntimeDirectory=krikun-xray
+RuntimeDirectoryMode=0755
+Restart=always
+RestartSec=15
+TimeoutStopSec=10
+MemoryLimit=128M
+CPUQuota=200%
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
+PrivateDevices=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+LockPersonality=yes
+CapabilityBoundingSet=CAP_CHOWN CAP_FOWNER CAP_SETUID CAP_SETGID
+SystemCallArchitectures=native
+RestrictRealtime=yes
+
+[Install]
+WantedBy=multi-user.target
