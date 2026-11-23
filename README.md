@@ -1,50 +1,53 @@
-# mgu-krikun — интернет, VPN и каталог для BMW iDrive 7 (MGU)
+# mgu-krikun — Xray, интернет и YouTube на BMW iDrive 7 (MGU)
 
-Личный источник и документация для **MGU Store** под аккаунтом [maxkrikoun-gif](https://github.com/maxkrikoun-gif).
+Личный контур с нуля: [maxkrikoun-gif/mgu-krikun](https://github.com/maxkrikoun-gif), SSH **`~/.ssh/mgu_krikun`** ([docs/project-identity.md](docs/project-identity.md)).
 
-Цели:
+**WireGuard на машине не используем.** Обход — **Xray (VLESS/Reality)** с хаба **fr74** (Amnezia), клиент на ГУ в режиме SOCKS (как задумано в [docs/xray-on-hu-design.md](docs/xray-on-hu-design.md)).
 
-- Поднять **интернет с телефона** (`mgu-uplink`) и **VPN-туннель** на головном устройстве.
-- Смотреть **YouTube** через [RideTube](https://github.com/JustAnotherPU/ridetube) в РФ (нужен обход блокировок).
-- Не хранить ключи Amnezia / WireGuard в репозитории.
+## Цели
 
-## Что поставить в Store (порядок)
+- **mgu-uplink** — интернет с телефона (USB / hotspot).
+- **krikun-xray** (в разработке) — Xray на ГУ, SOCKS `127.0.0.1:1080` → fr74.
+- **RideTube** — YouTube через тот же proxy, что и Store.
+- Секреты Amnezia **не** в git.
 
-| Шаг | Источник в Store | Что ставить |
-|-----|------------------|-------------|
-| 1 | *(уже есть)* `robertnisipeanu/mgu-store` | Store, **mgu-uplink**, mgu-updater, mgu-deploy |
-| 2 | `JustAnotherPU/mgu-apps` → **Releases** | **jap-wireproxy** (WireGuard → SOCKS5), при необходимости jap_sysmon |
-| 3 | `JustAnotherPU/ridetube` → **Releases** | **RideTube** (+ сервисы и Node 22) |
-| 4 | по желанию | `DarkMuse1/idrive7-apps-ru` и др. |
+## Что поставить в Store сейчас
+
+| Шаг | Источник | Что ставить |
+|-----|----------|-------------|
+| 1 | `robertnisipeanu/mgu-store` | Store, **mgu-uplink**, updater, deploy |
+| 2 | `JustAnotherPU/ridetube` → **Releases** | RideTube (+ node22 и сервисы) |
+| 3 | `maxkrikoun-gif/mgu-krikun` → **Releases** | **krikun-xray** (когда появится catalog) |
+| опционально | `DarkMuse1/idrive7-apps-ru` | русские приложения |
+
+**jap-wireproxy / WireGuard не нужны.**
 
 Подробно: [docs/store-sources.md](docs/store-sources.md).
 
-## Цепочка «телефон → VPN → YouTube»
+## Цепочка без WG
 
 ```text
-Телефон (USB-тетеринг или Wi‑Fi hotspot)
-    → mgu-uplink (отдельная маршрутизация для разрешённых приложений)
-    → jap-wireproxy (WireGuard к вашему серверу / хабу)
-    → SOCKS5 127.0.0.1:1065
-    → proxy в Store (updater.local.conf) → трафик RideTube и загрузки Store
+Телефон → mgu-uplink
+              ↓
+         krikun-xray (SOCKS 127.0.0.1:1080 → VLESS fr74)
+              ↓
+         proxy в updater.local.conf
+              ↓
+         RideTube / Store
 ```
 
-Настройка VPN и прокси: [docs/vpn-chain.md](docs/vpn-chain.md).
+Пошагово: [docs/xray-on-hu-design.md](docs/xray-on-hu-design.md).
 
-Примеры **без секретов**: [config/examples/](config/examples/).
+Пример конфига: [config/examples/xray-config.json.example](config/examples/xray-config.json.example).
 
-## Важно про Amnezia (`fr74.vpn`)
+## Amnezia
 
-Файл `vpn://…` из Amnezia — **не** конфиг для `jap-wireproxy`. На ГУ нужен обычный **WireGuard** (ключи peer + endpoint) или VPN **на телефоне** + uplink.
+Экспортируйте **Xray JSON** из Amnezia, не `vpn://`. Файлы `*.vpn` — только локально на Mac/ГУ.
 
-Ключи **не коммитить**. Если ключ попадал в чат — перевыпустите конфиг в Amnezia.
+## Репозиторий на GitHub
 
-## Свой источник в Store
-
-Сейчас репозиторий — **документация и шаблоны**. Полноценный источник с приложением «Net Lab» (статус uplink + VPN + тесты) — в `apps/` (в разработке).
-
-Когда появится релиз с `catalog.json`, в Store: **+ Добавить источник** → `maxkrikoun-gif/mgu-krikun` → **Releases**.
+Инструкция: [docs/github-create.md](docs/github-create.md).
 
 ## Лицензия
 
-MIT — только файлы этого репозитория. RideTube, MGU Store, wireproxy — лицензии upstream-проектов.
+MIT — файлы этого репо. RideTube, MGU Store, Xray-core — лицензии upstream.

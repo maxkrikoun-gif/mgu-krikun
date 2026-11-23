@@ -1,48 +1,47 @@
-# Источники MGU Store для maxkrikoun-gif
+# Источники MGU Store (без WireGuard)
 
-Формат имени: `владелец/репозиторий` (без `https://`).
+## Целевой стек
 
-## RideTube — что это
+| Компонент | Откуда | Зачем |
+|-----------|--------|--------|
+| Store + uplink | `robertnisipeanu/mgu-store` | магазин и **интернет с телефона** |
+| RideTube | `JustAnotherPU/ridetube` (Releases) | YouTube |
+| Xray на ГУ | `maxkrikoun-gif/mgu-krikun` (Releases, позже) | SOCKS → fr74 (VLESS/Reality) |
 
-**RideTube** ([JustAnotherPU/ridetube](https://github.com/JustAnotherPU/ridetube)) — неофициальный **клиент YouTube** для iDrive 7:
+**WireGuard / `JustAnotherPU/mgu-apps` / jap-wireproxy не ставим.**
 
-- ставится из Store (layout **Releases**);
-- работает **на ГУ**, нужен интернет через **mgu-uplink**;
-- в РФ без VPN/прокси YouTube часто недоступен;
-- в меню есть **Health check** — проверка сервиса, интернета, места на диске, аудио;
-- при вождении по умолчанию только звук (как подкаст).
+## RideTube
 
-Это **не** Android APK и не официальное приложение Google.
+[JustAnotherPU/ridetube](https://github.com/JustAnotherPU/ridetube) — клиент YouTube для iDrive 7:
 
-## mgu-uplink — что это
+- нужен **mgu-uplink**;
+- в РФ нужен **proxy** в `updater.local.conf` (через локальный Xray);
+- **Health check** в меню приложения.
 
-Компонент из [mgu-store](https://github.com/robertnisipeanu/mgu-store/tree/main/native/mgu-uplink):
+## mgu-uplink
 
-- даёт **интернет только выбранным** процессам/приложениям (изоляция от остальной системы ГУ);
-- поднимает канал с **телефона** (USB tethering RNDIS/NCM, iPhone Personal Hotspot), **Wi‑Fi** (hotspot телефона), USB LTE-стика и т.д.;
-- **не является VPN** — маршрутизатор «в мир» для разрешённых uid;
-- статус: `/run/mgu-uplink/status.json` (на ГУ, root/SSH).
+Не VPN. Раздаёт интернет выбранным процессам с телефона / LTE / Wi‑Fi hotspot.
 
-RideTube **зависит** от uplink: без линка Health check покажет ошибку интернета.
+RideTube без uplink не выйдет в сеть.
 
-## Прокси Store и RideTube
+## Proxy (Store + RideTube)
 
-RideTube читает ту же настройку прокси, что и MGU Store:
+Один файл на ГУ: `/var/opt/mgu-updater/updater.local.conf`
 
-- файл на ГУ: `/var/opt/mgu-updater/updater.local.conf`
-- строка: `proxy = socks5://127.0.0.1:1065` (порт как у `jap-wireproxy`, см. [vpn-chain.md](vpn-chain.md))
-- либо **Store → Settings → Proxy** (тот же конфиг)
+```ini
+proxy = socks5://127.0.0.1:1080
+```
 
-Так трафик YouTube идёт через SOCKS5 → WireGuard, а не напрямую в заблокированную сеть.
+(порт как у **krikun-xray**; Store → Settings → Proxy — то же значение)
 
-## Рекомендуемый порядок установки
+RideTube читает этот файл автоматически.
 
-1. Убедиться, что **mgu-uplink** установлен (идёт с Store).
-2. **JustAnotherPU/mgu-apps** (Releases) → **jap-wireproxy** — настроить WG на ГУ (см. vpn-chain.md).
-3. Прописать **proxy** для Store / RideTube.
-4. Подключить телефон, проверить uplink (статус в Store или SSH).
-5. **JustAnotherPU/ridetube** (Releases) → RideTube → **Health check** в приложении.
+## Порядок установки
 
-## Дизель 3.0
+1. **mgu-uplink** (уже с Store).
+2. **krikun-xray** — когда выложен релиз в этом репо; конфиг из Amnezia (Xray JSON) на ГУ.
+3. Прописать **proxy** (см. выше).
+4. Телефон, тетеринг → uplink online.
+5. **JustAnotherPU/ridetube** → RideTube → Health check.
 
-RideTube и uplink/VPN **не зависят** от типа ДВС. Осторожнее с приложениями, пишущими в ECU (exhaust flap, start/stop) — для бензина.
+Дизель 3.0 на YouTube/Xray не влияет.

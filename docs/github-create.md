@@ -1,5 +1,7 @@
 # Создать репозиторий на GitHub (maxkrikoun-gif)
 
+Проект с нуля: аккаунт **maxkrikoun-gif**, SSH **`~/.ssh/mgu_krikun`** (см. [project-identity.md](project-identity.md)).
+
 `gh` на этой машине не установлен — через веб:
 
 1. Войти как **maxkrikoun-gif** на [github.com](https://github.com).
@@ -14,7 +16,7 @@ cd /Users/m.krikun/bmw
 git init -b main
 git add -A
 git commit -m "docs: MGU uplink, wireproxy, RideTube chain"
-git remote add origin git@github.com:maxkrikoun-gif/mgu-krikun.git
+git remote add origin git@github.com-mgu-krikun:maxkrikoun-gif/mgu-krikun.git
 git push -u origin main
 ```
 

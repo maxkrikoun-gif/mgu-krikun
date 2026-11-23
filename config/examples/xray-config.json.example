@@ -1,0 +1,43 @@
+{
+  "log": { "loglevel": "warning" },
+  "inbounds": [{
+    "tag": "socks-in",
+    "protocol": "socks",
+    "listen": "127.0.0.1",
+    "port": 1080,
+    "settings": { "udp": true }
+  }],
+  "outbounds": [{
+    "tag": "fr74",
+    "protocol": "vless",
+    "settings": {
+      "vnext": [{
+        "address": "REPLACE_HOST",
+        "port": 443,
+        "users": [{
+          "id": "REPLACE_UUID",
+          "encryption": "none",
+          "flow": "xtls-rprx-vision"
+        }]
+      }]
+    },
+    "streamSettings": {
+      "network": "tcp",
+      "security": "reality",
+      "realitySettings": {
+        "serverName": "REPLACE_SNI",
+        "publicKey": "REPLACE_PBK",
+        "shortId": "REPLACE_SID",
+        "fingerprint": "chrome"
+      }
+    }
+  }],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [{
+      "type": "field",
+      "inboundTag": ["socks-in"],
+      "outboundTag": "fr74"
+    }]
+  }
+}
