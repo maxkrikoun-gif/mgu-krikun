@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "comment": "Заглушка: полноценный каталог появится с релизом catalog. Пока используйте источники из docs/store-sources.md",
+  "apps": {},
+  "tools": {},
+  "components": []
+}

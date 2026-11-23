@@ -1,0 +1,18 @@
+# Секреты VPN — никогда в git
+*.vpn
+vpn://*
+.env
+.env.*
+**/wireproxy.conf
+**/updater.local.conf
+secrets/
+private-keys/
+
+# OAP SDK BMW (нельзя публиковать)
+oap-sdk/
+dist/*.tgz
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
