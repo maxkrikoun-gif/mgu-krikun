@@ -1,0 +1,28 @@
+{
+  "id": "jap-filmix-d",
+  "kind": "tool",
+  "version": "0.0.1",
+  "license": "GPL-3.0-or-later",
+  "title": "FilmixProMax (сервис)",
+  "description": "Демон Filmix: device-code auth (API v2), далее каталог и стримы для приложения filmix_promax.",
+  "requires": {
+    "mgu-deploy": "0.7.0",
+    "jap-node22": "22.23.4"
+  },
+  "uninstallable": true,
+  "internet": true,
+  "uids": "state/internet-uids",
+  "mguHmi": ["ID7"],
+  "texts": {
+    "ru": {
+      "title": "FilmixProMax (сервис)",
+      "description": "Авторизация Filmix и API. Сокет /run/jap-filmix-d/ctl.sock"
+    }
+  },
+  "files": [
+    { "path": "filmix-d.js", "from": "filmix-d.js", "mode": "0755" },
+    { "path": "filmix-auth.js", "from": "filmix-auth.js", "mode": "0644" },
+    { "path": "filmix-api.js", "from": "filmix-api.js", "mode": "0644" },
+    { "path": "proxy.js", "from": "proxy.js", "mode": "0644" }
+  ]
+}

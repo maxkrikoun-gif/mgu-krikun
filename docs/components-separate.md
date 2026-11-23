@@ -10,6 +10,8 @@
 | **Krikun: сеть** | app | `krikun_seti` | UI: импорт USB, старт/стоп обхода, тест (RU) |
 | **RideTube** | app | `jap_ridetube` | YouTube в машине (RU по умолчанию) |
 | **RideTube service** | tool | `jap-ridetube-d` | Демон: yt-dlp, декод, MediaPlayer |
+| **FilmixProMax** | app | `filmix_promax` | Filmix: код на consoles, каталог |
+| **Filmix service** | tool | `jap-filmix-d` | Демон Filmix API v2 (proxy = как Store, от Xray) |
 
 **Не делаем:** один OAP «Xray+YouTube», общий `main.js`, `requires: { "krikun-xray": ... }` у RideTube.
 

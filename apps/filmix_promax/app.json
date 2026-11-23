@@ -1,0 +1,45 @@
+{
+  "id": "filmix_promax",
+  "title": "FilmixProMax",
+  "description": "Filmix на ГУ: привязка аккаунта по коду (как в Android), каталог и плеер BMW. Служба jap-filmix-d.",
+  "version": "0.0.1",
+  "license": "GPL-3.0-or-later",
+  "vendor": "krikun",
+  "loggingId": "FPMX",
+  "iconGlyph": "movie",
+  "mguHmi": ["ID7"],
+  "mguInternet": true,
+  "screens": [
+    {
+      "name": "VIEW",
+      "kind": "canvas",
+      "title": "Filmix",
+      "hmi": false,
+      "fill": true,
+      "bg": "#0f0f0f",
+      "buttons": [
+        ["BTN_ACCOUNT", "Аккаунт"],
+        ["BTN_REFRESH", "Обновить"],
+        ["BTN_EXIT", "Закрыть"]
+      ]
+    },
+    {
+      "name": "MAIN",
+      "kind": "menu",
+      "title": "FilmixProMax",
+      "settings": true,
+      "items": [
+        ["text", "MAIN_INFO", ""],
+        ["button", "BTN_ACCOUNT", "Привязать аккаунт"],
+        ["button", "BTN_REFRESH", "Обновить статус"],
+        ["button", "BTN_EXIT", "Закрыть"]
+      ]
+    }
+  ],
+  "texts": {
+    "ru": {
+      "title": "FilmixProMax",
+      "description": "Filmix в машине: код на filmix.gg/consoles. API идёт напрямую или через SOCKS, если запущен обход (krikun-xray)."
+    }
+  }
+}
