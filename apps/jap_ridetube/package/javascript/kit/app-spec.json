@@ -1,0 +1,450 @@
+{
+ "id": "jap_ridetube",
+ "title": "YouT",
+ "version": "0.6.4-ru.1",
+ "screens": [
+  {
+   "name": "VIEW",
+   "kind": "canvas",
+   "title": "YouT",
+   "hmi": false,
+   "fill": true,
+   "bg": "#0f0f0f",
+   "buttons": [
+    [
+     "BTN_PLAY",
+     "\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c"
+    ],
+    [
+     "BTN_RW",
+     "-10 \u0441"
+    ],
+    [
+     "BTN_FF",
+     "+10 \u0441"
+    ],
+    [
+     "BTN_LIST",
+     "\u041f\u043b\u0435\u0435\u0440"
+    ],
+    [
+     "BTN_FIND",
+     "\u041f\u043e\u0438\u0441\u043a"
+    ],
+    [
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ]
+   ]
+  },
+  {
+   "name": "MAIN",
+   "kind": "menu",
+   "title": "YouT: \u043f\u043e\u0438\u0441\u043a",
+   "settings": true,
+   "items": [
+    [
+     "button",
+     "BTN_SEARCH",
+     "\u041f\u043e\u0438\u0441\u043a"
+    ],
+    [
+     "text",
+     "MAIN_INFO",
+     ""
+    ],
+    [
+     "button",
+     "BTN_NOW",
+     "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0433\u0440\u0430\u0435\u0442"
+    ],
+    [
+     "button",
+     "BTN_CLOSE",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c \u0432\u0438\u0434\u0435\u043e"
+    ],
+    [
+     "button",
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ],
+    [
+     "button",
+     "BTN_RESULTS",
+     "\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b"
+    ],
+    [
+     "button",
+     "BTN_HOME",
+     "\u0413\u043b\u0430\u0432\u043d\u0430\u044f"
+    ],
+    [
+     "button",
+     "BTN_SUBS",
+     "\u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0438"
+    ],
+    [
+     "button",
+     "BTN_WL",
+     "\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u043f\u043e\u0437\u0436\u0435"
+    ],
+    [
+     "button",
+     "BTN_PL",
+     "\u041f\u043b\u0435\u0439\u043b\u0438\u0441\u0442\u044b"
+    ],
+    [
+     "button",
+     "BTN_HIST",
+     "\u0418\u0441\u0442\u043e\u0440\u0438\u044f"
+    ],
+    [
+     "button",
+     "BTN_LIB",
+     "\u041c\u0435\u0434\u0438\u0430\u0442\u0435\u043a\u0430"
+    ],
+    [
+     "button",
+     "BTN_S1",
+     ""
+    ],
+    [
+     "button",
+     "BTN_S2",
+     ""
+    ],
+    [
+     "button",
+     "BTN_S3",
+     ""
+    ],
+    [
+     "button",
+     "BTN_S4",
+     ""
+    ],
+    [
+     "button",
+     "BTN_S5",
+     ""
+    ],
+    [
+     "button",
+     "BTN_S6",
+     ""
+    ],
+    [
+     "button",
+     "BTN_ACCOUNT",
+     "\u0412\u043e\u0439\u0442\u0438"
+    ],
+    [
+     "button",
+     "BTN_HEALTH",
+     "\u0414\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0430"
+    ],
+    [
+     "button",
+     "BTN_REMOTE",
+     "\u041f\u0443\u043b\u044c\u0442 \u043d\u0430 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0435"
+    ],
+    [
+     "button",
+     "BTN_LOGS",
+     "\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0436\u0443\u0440\u043d\u0430\u043b\u044b \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u0443"
+    ],
+    [
+     "text",
+     "MAIN_SB",
+     "\u0414\u0430\u043d\u043d\u044b\u0435 \u0434\u043b\u044f \u043f\u0440\u043e\u043f\u0443\u0441\u043a\u0430: SponsorBlock (sponsor.ajay.app), CC BY-NC-SA 4.0"
+    ]
+   ]
+  }
+ ],
+ "popups": null,
+ "settings": [
+  {
+   "key": "language",
+   "label": "\u042f\u0437\u044b\u043a",
+   "type": "choice",
+   "default": "ru",
+   "options": [
+    [
+     "auto",
+     "\u0410\u0432\u0442\u043e"
+    ],
+    [
+     "en",
+     "English"
+    ],
+    [
+     "fr",
+     "Fran\u00e7ais"
+    ],
+    [
+     "nl",
+     "Nederlands"
+    ],
+    [
+     "de",
+     "Deutsch"
+    ],
+    [
+     "es",
+     "Espa\u00f1ol"
+    ],
+    [
+     "it",
+     "Italiano"
+    ],
+    [
+     "pt",
+     "Portugu\u00eas"
+    ],
+    [
+     "ru",
+     "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
+    ],
+    [
+     "zh-CN",
+     "\u4e2d\u6587"
+    ]
+   ]
+  },
+  {
+   "key": "fill",
+   "label": "\u0417\u0430\u043f\u043e\u043b\u043d\u044f\u0442\u044c \u044d\u043a\u0440\u0430\u043d (\u043e\u0431\u0440\u0435\u0437\u0430\u0435\u0442 \u0432\u0438\u0434\u0435\u043e; \u0432\u044b\u043a\u043b.: \u0447\u0451\u0440\u043d\u044b\u0435 \u043f\u043e\u043b\u043e\u0441\u044b \u043f\u043e \u0431\u043e\u043a\u0430\u043c)",
+   "type": "bool",
+   "default": false,
+   "reset": 2
+  },
+  {
+   "key": "quality",
+   "label": "\u041a\u0430\u0447\u0435\u0441\u0442\u0432\u043e \u0432\u0438\u0434\u0435\u043e",
+   "type": "choice",
+   "default": "auto",
+   "options": [
+    [
+     "auto",
+     "\u0410\u0432\u0442\u043e (720p \u043f\u043e Wi-Fi, 480p \u043f\u043e \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u043e\u0439 \u0441\u0435\u0442\u0438)"
+    ],
+    [
+     "720",
+     "720p"
+    ],
+    [
+     "480",
+     "480p (\u043c\u0435\u043d\u044c\u0448\u0435 \u0442\u0440\u0430\u0444\u0438\u043a\u0430)"
+    ],
+    [
+     "360",
+     "360p (\u043c\u0438\u043d\u0438\u043c\u0443\u043c \u0442\u0440\u0430\u0444\u0438\u043a\u0430)"
+    ]
+   ]
+  },
+  {
+   "key": "video_driving",
+   "label": "\u0412\u0438\u0434\u0435\u043e \u0432 \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u0438 \u2014 \u043d\u0430 \u0432\u0430\u0448 \u0440\u0438\u0441\u043a, \u0435\u0441\u043b\u0438 \u043c\u0430\u0448\u0438\u043d\u0430 \u0437\u0430\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0430 (\u0434\u043b\u044f \u043f\u0430\u0441\u0441\u0430\u0436\u0438\u0440\u043e\u0432); \u0434\u0435\u0439\u0441\u0442\u0432\u0443\u0435\u0442 \u043f\u043e\u0441\u043b\u0435 \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438",
+   "type": "bool",
+   "default": true
+  },
+  {
+   "key": "members",
+   "label": "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u0432\u0438\u0434\u0435\u043e \u0442\u043e\u043b\u044c\u043a\u043e \u0434\u043b\u044f \u0441\u043f\u043e\u043d\u0441\u043e\u0440\u043e\u0432 \u043a\u0430\u043d\u0430\u043b\u0430",
+   "type": "bool",
+   "default": false
+  },
+  {
+   "key": "shorts",
+   "label": "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c Shorts",
+   "type": "bool",
+   "default": false
+  },
+  {
+   "key": "sb_sponsor",
+   "label": "SponsorBlock: \u0440\u0435\u043a\u043b\u0430\u043c\u0430",
+   "type": "choice",
+   "default": "skip",
+   "options": [
+    [
+     "skip",
+     "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "ask",
+     "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u00ab\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c\u00bb"
+    ],
+    [
+     "off",
+     "\u0412\u044b\u043a\u043b."
+    ]
+   ]
+  },
+  {
+   "key": "sb_selfpromo",
+   "label": "SponsorBlock: \u0441\u0430\u043c\u043e\u0440\u0435\u043a\u043b\u0430\u043c\u0430",
+   "type": "choice",
+   "default": "skip",
+   "options": [
+    [
+     "skip",
+     "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "ask",
+     "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u00ab\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c\u00bb"
+    ],
+    [
+     "off",
+     "\u0412\u044b\u043a\u043b."
+    ]
+   ]
+  },
+  {
+   "key": "sb_interaction",
+   "label": "SponsorBlock: \u043f\u0440\u0438\u0437\u044b\u0432\u044b \u043b\u0430\u0439\u043a\u043d\u0443\u0442\u044c \u0438 \u043f\u043e\u0434\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f",
+   "type": "choice",
+   "default": "skip",
+   "options": [
+    [
+     "skip",
+     "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "ask",
+     "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u00ab\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c\u00bb"
+    ],
+    [
+     "off",
+     "\u0412\u044b\u043a\u043b."
+    ]
+   ]
+  },
+  {
+   "key": "sb_intro",
+   "label": "SponsorBlock: \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f",
+   "type": "choice",
+   "default": "skip",
+   "options": [
+    [
+     "skip",
+     "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "ask",
+     "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u00ab\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c\u00bb"
+    ],
+    [
+     "off",
+     "\u0412\u044b\u043a\u043b."
+    ]
+   ]
+  },
+  {
+   "key": "sb_outro",
+   "label": "SponsorBlock: \u043a\u043e\u043d\u0446\u043e\u0432\u043a\u0438 \u0438 \u0442\u0438\u0442\u0440\u044b",
+   "type": "choice",
+   "default": "ask",
+   "options": [
+    [
+     "skip",
+     "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "ask",
+     "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u00ab\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c\u00bb"
+    ],
+    [
+     "off",
+     "\u0412\u044b\u043a\u043b."
+    ]
+   ]
+  },
+  {
+   "key": "sb_music_offtopic",
+   "label": "SponsorBlock: \u043d\u0435\u043c\u0443\u0437\u044b\u043a\u0430\u043b\u044c\u043d\u044b\u0435 \u0447\u0430\u0441\u0442\u0438 \u043a\u043b\u0438\u043f\u043e\u0432",
+   "type": "choice",
+   "default": "off",
+   "options": [
+    [
+     "skip",
+     "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "ask",
+     "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u00ab\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c\u00bb"
+    ],
+    [
+     "off",
+     "\u0412\u044b\u043a\u043b."
+    ]
+   ]
+  },
+  {
+   "key": "auto_download",
+   "label": "\u0421\u043a\u0430\u0447\u0438\u0432\u0430\u0442\u044c \u043d\u043e\u0432\u044b\u0435 \u0432\u0438\u0434\u0435\u043e \u0438\u0437 \u043f\u043e\u0434\u043f\u0438\u0441\u043e\u043a \u043f\u043e Wi-Fi (\u0443\u0434\u0430\u043b\u044f\u044e\u0442\u0441\u044f \u043f\u043e\u0441\u043b\u0435 \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0430)",
+   "type": "choice",
+   "default": "0",
+   "options": [
+    [
+     "0",
+     "\u0412\u044b\u043a\u043b."
+    ],
+    [
+     "3",
+     "3 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0445"
+    ],
+    [
+     "5",
+     "5 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0445"
+    ],
+    [
+     "10",
+     "10 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0445"
+    ]
+   ]
+  },
+  {
+   "key": "ytdlp_auto",
+   "label": "\u041e\u0431\u043d\u043e\u0432\u043b\u044f\u0442\u044c yt-dlp \u0441\u0430\u043c\u043e\u0441\u0442\u043e\u044f\u0442\u0435\u043b\u044c\u043d\u043e: \u043d\u043e\u0432\u0435\u0439\u0448\u0438\u0439 \u0432\u044b\u043f\u0443\u0441\u043a, \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0440\u0430\u0437 \u0432 \u0434\u0435\u043d\u044c (\u0432\u044b\u043a\u043b.: \u0442\u043e\u0442, \u0447\u0442\u043e \u0432 \u0441\u043b\u0443\u0436\u0431\u0435 YouT)",
+   "type": "bool",
+   "default": true
+  },
+  {
+   "key": "store_proxy",
+   "label": "\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u043f\u0440\u043e\u043a\u0441\u0438 MGU Store, \u0435\u0441\u043b\u0438 \u043e\u043d \u0437\u0430\u0434\u0430\u043d (\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u2192 \u041f\u0440\u043e\u043a\u0441\u0438 \u0432 Store; \u0432\u044b\u043a\u043b.: \u043d\u0430\u043f\u0440\u044f\u043c\u0443\u044e)",
+   "type": "bool",
+   "default": true
+  },
+  {
+   "key": "battery",
+   "label": "\u041d\u0430 \u0441\u0442\u043e\u044f\u043d\u043a\u0435: \u043f\u0430\u0443\u0437\u0430, \u0435\u0441\u043b\u0438 \u0437\u0430\u0440\u044f\u0434 \u0410\u041a\u0411 12 \u0412 \u043d\u0438\u0436\u0435",
+   "type": "choice",
+   "default": "65",
+   "options": [
+    [
+     "60",
+     "60 %"
+    ],
+    [
+     "65",
+     "65 %"
+    ],
+    [
+     "70",
+     "70 %"
+    ],
+    [
+     "0",
+     "\u041d\u0438\u043a\u043e\u0433\u0434\u0430"
+    ]
+   ]
+  }
+ ],
+ "config": null,
+ "startWidget": null,
+ "stateIds": {
+  "VIEW": 1,
+  "MAIN": 13
+ }
+}

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "jap_ridetube",
+  "version": "0.6.5",
+  "tree": "package",
+  "modules": [
+    "package/javascript/app.js",
+    "package/javascript/yt.js",
+    "package/javascript/health.js",
+    "package/javascript/news.js",
+    "package/javascript/remote.js",
+    "package/javascript/search.js",
+    "package/javascript/speller.js"
+  ],
+  "sdk": ["oap-sdk/src/core/OnlineApp.js", "oap-sdk/src/logging/logging"],
+  "internet": true
+}

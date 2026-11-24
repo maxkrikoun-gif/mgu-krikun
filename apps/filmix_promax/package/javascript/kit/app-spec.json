@@ -1,0 +1,65 @@
+{
+ "id": "filmix_promax",
+ "title": "FilmixProMax",
+ "version": "0.0.2-ru.1",
+ "screens": [
+  {
+   "name": "VIEW",
+   "kind": "canvas",
+   "title": "Filmix",
+   "hmi": false,
+   "fill": true,
+   "bg": "#0f0f0f",
+   "buttons": [
+    [
+     "BTN_ACCOUNT",
+     "\u0410\u043a\u043a\u0430\u0443\u043d\u0442"
+    ],
+    [
+     "BTN_REFRESH",
+     "\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c"
+    ],
+    [
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ]
+   ]
+  },
+  {
+   "name": "MAIN",
+   "kind": "menu",
+   "title": "FilmixProMax",
+   "settings": true,
+   "items": [
+    [
+     "text",
+     "MAIN_INFO",
+     ""
+    ],
+    [
+     "button",
+     "BTN_ACCOUNT",
+     "\u041f\u0440\u0438\u0432\u044f\u0437\u0430\u0442\u044c \u0430\u043a\u043a\u0430\u0443\u043d\u0442"
+    ],
+    [
+     "button",
+     "BTN_REFRESH",
+     "\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u0441\u0442\u0430\u0442\u0443\u0441"
+    ],
+    [
+     "button",
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ]
+   ]
+  }
+ ],
+ "popups": null,
+ "settings": [],
+ "config": null,
+ "startWidget": null,
+ "stateIds": {
+  "VIEW": 1,
+  "MAIN": 10
+ }
+}

@@ -1,11 +1,27 @@
 {
   "schema": 1,
-  "comment": "main: krikun_seti = unit (без build.py на ГУ); остальные apps/*. jap-node22 в tools/.",
+  "comment": "unit-apps: package/ в git, без build.py на ГУ (нет -ru.1 / oapgen / 64 MiB). Сервис YouT: jap-ridetube-d — только файлы внутри native/jap-ridetube-d/.",
   "components": [
     {
       "id": "krikun_seti",
       "kind": "app",
       "path": "apps/krikun_seti",
+      "build": "unit",
+      "icon": "icon.png",
+      "mguHmi": ["ID7"]
+    },
+    {
+      "id": "filmix_promax",
+      "kind": "app",
+      "path": "apps/filmix_promax",
+      "build": "unit",
+      "icon": "icon.png",
+      "mguHmi": ["ID7"]
+    },
+    {
+      "id": "jap_ridetube",
+      "kind": "app",
+      "path": "apps/jap_ridetube",
       "build": "unit",
       "icon": "icon.png",
       "mguHmi": ["ID7"]
@@ -15,12 +31,12 @@
     "path": "apps/*",
     "manifest": "app.json",
     "icon": "icon.png",
-    "exclude": ["krikun_seti"],
+    "exclude": ["krikun_seti", "filmix_promax", "jap_ridetube"],
     "build": {
       "python": "kit/tools/build.py",
       "args": ["{id}", "--language", "ru"],
       "sdk": "oap-sdk",
-      "output": "dist/{id}@{version}.tgz",
+      "output": "dist/{id}@{version}-ru.1.tgz",
       "shared": [
         "kit/runtime",
         "kit/platform",
