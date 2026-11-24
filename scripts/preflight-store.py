@@ -26,6 +26,7 @@ def main() -> int:
         "validate-component-json.py",
         "simulate-hu-tool.py",
         "simulate-oap-pack.py",
+        "audit-mgu-architecture.py",
         "audit-store-5pass.py",
     ):
         p = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], capture_output=True, text=True)

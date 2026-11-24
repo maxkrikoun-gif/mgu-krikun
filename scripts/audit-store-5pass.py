@@ -299,6 +299,20 @@ def pass9_catalog_json() -> tuple[list[str], list[str]]:
     return errs, warns
 
 
+def pass11_mgu_architecture() -> tuple[list[str], list[str]]:
+    """Проход 11: ELF/recmgr/internet uid/shrinkwrap/oap kit quotes/wireproxy."""
+    errs: list[str] = []
+    p = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "audit-mgu-architecture.py")],
+        capture_output=True,
+        text=True,
+    )
+    print(p.stdout, end="")
+    if p.returncode:
+        errs.append("pass11: audit-mgu-architecture.py failed")
+    return errs, []
+
+
 def pass10_check_preflight_hooks() -> tuple[list[str], list[str]]:
     """Проход 10: full mock check.sh — пути /var/opt через MGU_TOOL_* (инцидент krikun-xray)."""
     full_mock = frozenset({"krikun-xray"})
@@ -333,6 +347,7 @@ def main() -> int:
         "krikun-xray systemd (NoNewPrivileges)",
         "dist/catalog vs repo",
         "check.sh MGU_TOOL_* hooks",
+        "MGU architecture (ELF/recmgr/…)",
     )
     steps = (
         pass1_catalog,
@@ -345,6 +360,7 @@ def main() -> int:
         pass8_krikun_xray_units,
         pass9_catalog_json,
         pass10_check_preflight_hooks,
+        pass11_mgu_architecture,
     )
     for i, fn in enumerate(steps, 1):
         e, w = fn()
