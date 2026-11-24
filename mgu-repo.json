@@ -81,6 +81,11 @@
     {
       "id": "jap-filmix-d",
       "path": "native/jap-filmix-d"
+    },
+    {
+      "id": "mgu-render-id7-touch",
+      "path": "native/mgu-render-id7-touch",
+      "optional": true
     }
   ]
 }

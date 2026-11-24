@@ -24,7 +24,7 @@
 
 **Из других источников Store (до apps):** mgu-store (`mgu-render` **0.6.11**, `mgu-inputgate` **1.0.0**, …), idrive7-apps (**idrive7-renderd** **2.1.10** для Krikun: сеть и FilmixProMax).
 
-**Касание на весь экран** (`mgu-render-id7-touch`, опционально): из **idrive7-apps** или **mgu-store**, не из этого репо. Нужен для полной ширины YouT; без него Health check предложит установить из Store.
+**Касание на весь экран** (`mgu-render-id7-touch` **1.4.0**, опционально): в списке Store на **main** (утилита). Нужен для полной ширины YouT.
 
 ## Порядок установки
 
