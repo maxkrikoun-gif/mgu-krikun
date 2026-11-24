@@ -1,0 +1,19 @@
+# FilmixProMax daemon — ctl.sock для приложения filmix_promax
+[Unit]
+Description=jap-filmix-d: Filmix auth and API daemon
+RequiresMountsFor=/var/opt
+After=local-fs.target jap-node22.service
+
+[Service]
+User=root
+ExecStartPre=-/bin/sh -c 'mkdir -p /var/opt/jap-filmix-d/state && chmod 0755 /var/opt/jap-filmix-d && chmod 0700 /var/opt/jap-filmix-d/state'
+ExecStart=/var/opt/jap-node22/current/bin/node /var/opt/jap-filmix-d/current/filmix-d.js
+RuntimeDirectory=jap-filmix-d
+RuntimeDirectoryMode=0755
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=5
+LimitCORE=1
+
+[Install]
+WantedBy=multi-user.target

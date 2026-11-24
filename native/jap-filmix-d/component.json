@@ -1,7 +1,7 @@
 {
   "id": "jap-filmix-d",
   "kind": "tool",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "GPL-3.0-or-later",
   "title": "FilmixProMax (сервис)",
   "description": "Демон Filmix: device-code auth (API v2), далее каталог и стримы для приложения filmix_promax.",
@@ -23,6 +23,14 @@
     { "path": "filmix-d.js", "from": "filmix-d.js", "mode": "0755" },
     { "path": "filmix-auth.js", "from": "filmix-auth.js", "mode": "0644" },
     { "path": "filmix-api.js", "from": "filmix-api.js", "mode": "0644" },
-    { "path": "proxy.js", "from": "proxy.js", "mode": "0644" }
-  ]
+    { "path": "proxy.js", "from": "proxy.js", "mode": "0644" },
+    { "path": "check.sh", "from": "check.sh", "mode": "0755" }
+  ],
+  "check": ["check.sh"],
+  "units": [
+    { "name": "jap-filmix-d.service", "from": "systemd/jap-filmix-d.service" }
+  ],
+  "enable": [{ "unit": "jap-filmix-d.service", "target": "multi-user.target" }],
+  "recmgr": ["jap-filmix-d"],
+  "restart": ["jap-filmix-d.service"]
 }

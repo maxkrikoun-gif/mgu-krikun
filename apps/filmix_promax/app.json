@@ -10,7 +10,7 @@
   "mguHmi": ["ID7"],
   "mguInternet": true,
   "requires": {
-    "jap-filmix-d": "0.0.2",
+    "jap-filmix-d": "0.0.3",
     "idrive7-renderd": "2.1.10",
     "mgu-inputgate": "1.0.0",
     "jap-node22": "22.23.4"
