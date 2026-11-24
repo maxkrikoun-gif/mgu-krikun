@@ -38,8 +38,17 @@ upload_with_curl() {
   done
 }
 
-if [ -n "${GH_TOKEN:-}" ]; then
-  upload_with_curl "$GH_TOKEN"
+pick_token() {
+  if [ -n "${GH_TOKEN:-}" ]; then
+    echo "$GH_TOKEN"
+    return
+  fi
+  security find-generic-password -a maxkrikoun-gif -s mgu-krikun-gh-release -w 2>/dev/null || true
+}
+
+token="$(pick_token)"
+if [ -n "$token" ]; then
+  upload_with_curl "$token"
 elif gh auth status &>/dev/null; then
   if ! gh release view catalog --repo "$repo" &>/dev/null; then
     gh release create catalog --repo "$repo" --title catalog \
