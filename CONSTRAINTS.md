@@ -11,3 +11,4 @@
 7. **Обновление RideTube:** `python3 scripts/fetch-ridetube.py` → `python3 scripts/apply-ridetube-patches.py` → `python3 scripts/verify-ridetube.py` (ожидаемо 2 mismatch по патчам).
 8. **Перед релизом catalog:** чеклист [docs/russian-only.md](docs/russian-only.md) + [docs/first-run-hu.md](docs/first-run-hu.md).
 9. **Перед push в main:** `python3 scripts/preflight-store.py` должен быть зелёным (в т.ч. systemd/runas и mock `check.sh`).
+10. **Чеклист HU для Cursor:** [`.cursor/rules/mgu-krikun-hu.mdc`](.cursor/rules/mgu-krikun-hu.mdc) (`alwaysApply`); обоснование — [docs/mgu-idrive7-best-practices.md](docs/mgu-idrive7-best-practices.md).

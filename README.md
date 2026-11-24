@@ -18,10 +18,11 @@
 
 ## Store на ГУ
 
-```text
-Добавить источник → maxkrikoun-gif/mgu-krikun (Store сам читает **main**).
+Добавить источник → **maxkrikoun-gif/mgu-krikun** (Store читает **main** или релиз **catalog**).
 
-Схема repo tree: [docs/main-repo-tree.md](docs/main-repo-tree.md). Первый запуск: [docs/first-run-hu.md](docs/first-run-hu.md).
+Схема repo tree: [docs/main-repo-tree.md](docs/main-repo-tree.md).  
+Первый запуск (iDrive 7): [docs/first-run-hu.md](docs/first-run-hu.md).  
+Практики экосистемы (ID7): [docs/mgu-idrive7-best-practices.md](docs/mgu-idrive7-best-practices.md).
 
 ## Цепочка сети
 
