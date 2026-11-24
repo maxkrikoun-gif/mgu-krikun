@@ -7,8 +7,12 @@ vpn://*
 secrets/
 private-keys/
 
-# OAP SDK BMW (нельзя публиковать)
-oap-sdk/
+# OAP SDK BMW (нельзя публиковать) — кроме desktop-stub для catalog-release
+oap-sdk/*
+!oap-sdk/README.md
+!oap-sdk/package.json
+!oap-sdk/index.js
+.cache/
 dist/*.tgz
 tools/krikun-xray/build/
 scripts/*.local

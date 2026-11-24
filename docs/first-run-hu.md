@@ -4,8 +4,10 @@
 
 ## 1. Store
 
-- Источник: **`maxkrikoun-gif/mgu-krikun`** (token для private).
-- **mgu-uplink** — интернет с телефона.
+- Источник: **`maxkrikoun-gif/mgu-krikun`**, канал **Releases** → релиз `catalog` (см. [catalog-release.md](catalog-release.md)).  
+  Режим **ветка main** — только для разработки; для установки YouT/Filmix нужен **catalog**.
+- **mgu-uplink** — из того же catalog (интернет с телефона).
+- Сначала база: **mgu-deploy**, **mgu-python**, **jap-node22**, **mgu-render**, **idrive7-renderd**, **mgu-inputgate**.
 
 ## 2. Xray
 

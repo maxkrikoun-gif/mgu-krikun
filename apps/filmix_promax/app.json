@@ -2,13 +2,14 @@
   "id": "filmix_promax",
   "title": "FilmixProMax",
   "description": "Filmix на ГУ: привязка аккаунта по коду (как в Android), каталог и плеер BMW. Служба jap-filmix-d.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "GPL-3.0-or-later",
   "vendor": "krikun",
   "loggingId": "FPMX",
   "iconGlyph": "movie",
   "mguHmi": ["ID7"],
   "mguInternet": true,
+  "settings": [],
   "screens": [
     {
       "name": "VIEW",

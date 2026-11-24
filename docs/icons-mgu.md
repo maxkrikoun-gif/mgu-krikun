@@ -5,6 +5,8 @@
 | Параметр | Значение |
 |----------|----------|
 | Файл | `apps/<id>/icon.png` (см. `mgu-repo.json` → `apps.icon`) |
+| Repo tree | у каждого app в `components[]` поле **`"icon": "icon.png"`** (иначе Store рисует букву из `iconGlyph`) |
+| Catalog | в `catalog.json`: `"icon"` + `"iconSha256"`, PNG в assets релиза |
 | Размер | **140×140** px, RGBA |
 | Скругление | **r = 32** px (внешняя плитка) |
 | Safe zone | отступ **14** px от края (контент в 112×112) |

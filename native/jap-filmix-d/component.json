@@ -1,7 +1,7 @@
 {
   "id": "jap-filmix-d",
   "kind": "tool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "GPL-3.0-or-later",
   "title": "FilmixProMax (сервис)",
   "description": "Демон Filmix: device-code auth (API v2), далее каталог и стримы для приложения filmix_promax.",

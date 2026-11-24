@@ -1,6 +1,34 @@
-# Один источник в MGU Store
+# Источники в MGU Store
 
-## Правило
+## Режим «источники уже стоят» (твой случай)
+
+На ГУ уже есть:
+
+- `robertnisipeanu/mgu-store` — deploy, python, updater, render, uplink и др.
+- `cauliflowermossgrape/idrive7-apps` — **idrive7-renderd**, **mgu-inputgate**, приложения сообщества
+- плюс `idrive-apps`, `car-apps`, system-monitor и **`maxkrikoun-gif/mgu-krikun`**
+
+**Не дублируем** это в релизе `catalog` mgu-krikun. Список исключений — `catalog/deps.manifest.json` → `exclude_from_catalog`.
+
+В catalog попадают только:
+
+| Компонент | Зачем |
+|-----------|--------|
+| **jap-node22** | Нет в твоих источниках; нужен Filmix |
+| **krikun-xray**, **jap-filmix-d** | Свои tools |
+| **jap-ridetube-d**, **jap_ridetube** (YouT) | YouTube, RU |
+| **krikun_seti**, **filmix_promax** | Приложения |
+| опц. **mgu-render-id7-touch** | Только для YouT, требует **mgu-render** из mgu-store |
+
+Store **склеивает** `requires` между источниками: YouT/Filmix/Сеть ставятся из `mgu-krikun`, зависимости — из mgu-store и idrive7-apps.
+
+**Источник mgu-krikun на ГУ:** Releases → релиз **`catalog`** (не ветка `main`, если нет готовых `.tgz` в дереве).
+
+Полный автономный catalog (всё внутри одного релиза): `python3 scripts/catalog-release.py --bundle-all-deps`.
+
+---
+
+## Режим «один источник» (альтернатива)
 
 На головном устройстве **не добавляем** чужие каталоги:
 

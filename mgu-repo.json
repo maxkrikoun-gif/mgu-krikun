@@ -5,7 +5,24 @@
     "path": "apps/*",
     "manifest": "app.json",
     "icon": "icon.png",
-    "exclude": []
+    "exclude": [],
+    "build": {
+      "python": "kit/tools/build.py",
+      "args": ["{id}", "--language", "ru"],
+      "sdk": "oap-sdk",
+      "output": "dist/{id}@{version}.tgz",
+      "shared": [
+        "kit/runtime",
+        "kit/platform",
+        "kit/localization",
+        "kit/tools/build.py",
+        "kit/tools/pack_data.py",
+        "kit/tools/localize.py",
+        "kit/tools/locale-revisions.json",
+        "kit/tools/oapgen",
+        "oap-sdk"
+      ]
+    }
   },
   "tools": [
     {
@@ -27,9 +44,10 @@
       "kind": "app",
       "path": "apps/krikun_seti",
       "manifest": "app.json",
+      "icon": "icon.png",
       "mguHmi": ["ID7"],
       "requires": {
-        "krikun-xray": "0.0.1",
+        "krikun-xray": "0.0.2",
         "idrive7-renderd": "2.1.10",
         "mgu-inputgate": "1.0.0"
       },
@@ -45,9 +63,12 @@
       "kind": "app",
       "path": "apps/jap_ridetube",
       "manifest": "app.json",
+      "icon": "icon.png",
       "mguHmi": ["ID7"],
       "requires": {
-        "jap-ridetube-d": "0.5.4"
+        "jap-ridetube-d": "0.5.4",
+        "mgu-render": "0.6.11",
+        "mgu-inputgate": "1.0.0"
       },
       "texts": {
         "ru": {
@@ -61,9 +82,10 @@
       "kind": "app",
       "path": "apps/filmix_promax",
       "manifest": "app.json",
+      "icon": "icon.png",
       "mguHmi": ["ID7"],
       "requires": {
-        "jap-filmix-d": "0.0.1",
+        "jap-filmix-d": "0.0.2",
         "idrive7-renderd": "2.1.10",
         "mgu-inputgate": "1.0.0",
         "jap-node22": "22.23.4"
