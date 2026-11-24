@@ -11,9 +11,9 @@ RuntimeDirectoryMode=0755
 Restart=always
 RestartSec=15
 TimeoutStopSec=10
-MemoryLimit=128M
+MemoryLimit=192M
 CPUQuota=200%
-NoNewPrivileges=yes
+# NoNewPrivileges ломает krikun-runas (setuid 3922) → вечный activating.
 PrivateTmp=yes
 ProtectSystem=full
 ProtectHome=yes

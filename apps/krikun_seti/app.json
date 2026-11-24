@@ -9,7 +9,7 @@
   "mguHmi": ["ID7"],
   "mguInternet": true,
   "requires": {
-    "krikun-xray": "0.0.2",
+    "krikun-xray": "0.0.3",
     "mgu-inputgate": "1.0.0",
     "idrive7-renderd": "2.1.10"
   },

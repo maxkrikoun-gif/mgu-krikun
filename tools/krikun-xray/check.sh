@@ -1,13 +1,16 @@
 #!/bin/sh
 # SPDX-License-Identifier: MIT
+# mgu-deploy check: бинарники OK; config — желателен для SOCKS, без него idle допустим.
 set -eu
-D=/var/opt/krikun-xray/conf
-CFG=$D/config.json
+D=/var/opt/krikun-xray/current
+CFG=/var/opt/krikun-xray/conf/config.json
+[ -x "$D/xray" ] || { echo "krikun-xray: нет $D/xray"; exit 1; }
+[ -x "$D/krikun-runas" ] || { echo "krikun-xray: нет $D/krikun-runas"; exit 1; }
 if [ ! -f "$CFG" ]; then
-	echo "krikun-xray: нет конфигурации ($CFG)"
-	exit 1
+	echo "krikun-xray: конфиг пока нет ($CFG) — idle до USB KRIKUN/xray.json или «Krikun: сеть»"
+	exit 0
 fi
-if ! grep -q '"127.0.0.1"' "$CFG" && ! grep -q '127.0.0.1' "$CFG"; then
+if ! grep -q '127.0.0.1' "$CFG"; then
 	echo "krikun-xray: в конфиге должен быть inbound на 127.0.0.1"
 	exit 1
 fi
