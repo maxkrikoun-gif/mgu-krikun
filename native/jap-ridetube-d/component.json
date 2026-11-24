@@ -50,7 +50,7 @@
     },
     {
       "path": "ytdec",
-      "from": "build/ytdec",
+      "from": "prebuilt/ytdec",
       "mode": "0755"
     },
     {
@@ -60,7 +60,7 @@
     },
     {
       "path": "ytdlp.pyz",
-      "from": "build/ytdlp.pyz",
+      "from": "prebuilt/ytdlp.pyz",
       "mode": "0644"
     },
     {

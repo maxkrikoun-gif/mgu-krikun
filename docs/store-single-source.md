@@ -27,7 +27,7 @@ maxkrikoun-gif/mgu-krikun
 
 | Пакет | Назначение |
 |-------|------------|
-| **jap-node22** | Node 22 (сборка на ГУ из `tools/jap-node22/build.sh`) |
+| **jap-node22**, **krikun-xray**, **jap-ridetube-d** | В ветке `main` лежат **prebuilt/** (бинарники в git; на ГУ `build.sh` не вызывается) |
 | **krikun-xray**, **Krikun: сеть** | обход / proxy Store |
 | **jap-ridetube-d**, **YouT** | YouTube |
 | **jap-filmix-d**, **FilmixProMax** | Filmix |

@@ -19,12 +19,12 @@
   "files": [
     {
       "path": "bin/node",
-      "from": "build/node",
+      "from": "prebuilt/node",
       "mode": "0755"
     },
     {
       "path": "LICENSE",
-      "from": "build/LICENSE",
+      "from": "prebuilt/LICENSE",
       "mode": "0644"
     },
     {

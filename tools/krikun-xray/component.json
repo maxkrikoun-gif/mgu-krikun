@@ -20,8 +20,8 @@
     }
   },
   "files": [
-    { "path": "xray", "from": "build/xray", "mode": "0755" },
-    { "path": "krikun-runas", "from": "build/krikun-runas", "mode": "0755" },
+    { "path": "xray", "from": "prebuilt/xray", "mode": "0755" },
+    { "path": "krikun-runas", "from": "prebuilt/krikun-runas", "mode": "0755" },
     { "path": "start.sh", "from": "start.sh", "mode": "0755" },
     { "path": "setup.sh", "from": "setup.sh", "mode": "0755" },
     { "path": "import-config.sh", "from": "import-config.sh", "mode": "0755" },
