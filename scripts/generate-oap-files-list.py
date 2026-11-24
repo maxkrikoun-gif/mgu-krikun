@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Как в idrive7-apps: перечисление каталогов/файлов дерева OAP (oap_pack.js members).
 DEFAULT = (
+    "package.json",
     "config",
     "javascript",
     "manifest.json",

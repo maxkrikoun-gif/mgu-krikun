@@ -48,10 +48,23 @@ const {{pack}} = require({json.dumps(str(oap_dir / "oap_pack.js"))});
 pack({json.dumps(str(pkg))}, {json.dumps(str(out))});
 """
         r = subprocess.run(["node", "-e", node], capture_output=True, text=True)
-        out.unlink(missing_ok=True)
         if r.returncode:
+            out.unlink(missing_ok=True)
             msg = (r.stderr or r.stdout or "pack failed").strip().splitlines()[-1]
             errs.append(f"{mf.parent.name}: {msg}")
+            continue
+        lst = subprocess.run(
+            ["tar", "tzf", str(out)],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        out.unlink(missing_ok=True)
+        roots = {line.split("/", 1)[0] for line in lst.stdout.splitlines() if line}
+        if "package.json" not in roots:
+            errs.append(
+                f"{mf.parent.name}: tgz без корневого package.json (mgu-deploy validateArtifact)"
+            )
         else:
             print(f"OK oap_pack {mf.parent.name}")
     if errs:

@@ -136,6 +136,10 @@ def main() -> int:
                     f"{app['id']}: package/package.json без files[] — oap_pack на ГУ: forEach of undefined"
                 )
             else:
+                if "package.json" not in fl:
+                    errs.append(
+                        f"{app['id']}: files[] без package.json — tgz без корневого package.json, mgu-deploy откажет"
+                    )
                 base = pkg_path.parent
                 for ent in fl:
                     if not (base / ent).exists():

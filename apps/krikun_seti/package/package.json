@@ -1,6 +1,6 @@
 {
   "name": "krikun_seti",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Включение обхода, импорт Xray с USB, статус прокси для RideTube",
   "main": "javascript/app.js",
   "private": false,
@@ -22,6 +22,7 @@
     "someipManifest": "manifest.json"
   },
   "files": [
+    "package.json",
     "config",
     "javascript",
     "manifest.json",
