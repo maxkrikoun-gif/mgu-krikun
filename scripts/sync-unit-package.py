@@ -45,6 +45,9 @@ def main() -> int:
                 base = ver.split("-", 1)[0]
                 data["version"] = base
                 pkg.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        oap = dest / "node_modules" / "oap-sdk"
+        if oap.is_dir():
+            shutil.rmtree(dest / "node_modules")
         app_json = APPS / app_id / "app.json"
         ver = json.loads(app_json.read_text(encoding="utf-8")).get("version", "?")
         print(f"OK {app_id} → {dest} (app.json version {ver})")
