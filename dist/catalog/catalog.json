@@ -35,12 +35,12 @@
       "kind": "tool",
       "title": "Krikun Xray",
       "description": "Xray SOCKS5 на 127.0.0.1:1080 для обхода блокировок (VLESS/Reality). Конфиг только на ГУ, импорт с USB или из приложения «Krikun: сеть».",
-      "version": "0.0.7",
+      "version": "0.0.8",
       "artifact": {
-        "name": "krikun-xray@0.0.7.tgz",
-        "size": 14353045,
-        "sha256": "5ffcc6261011610f9a8f75c7df6e6269b510da3ebebd7a627581762126682de9",
-        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun-xray@0.0.7.tgz"
+        "name": "krikun-xray@0.0.8.tgz",
+        "size": 14353163,
+        "sha256": "453c7b1f451f3ba6e04dfb33779d54729d2d6b9a0333a18837804a2708516298",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun-xray@0.0.8.tgz"
       },
       "requires": {
         "mgu-deploy": "0.7.0",
@@ -158,7 +158,7 @@
         "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun_seti@0.0.5.tgz"
       },
       "requires": {
-        "krikun-xray": "0.0.7",
+        "krikun-xray": "0.0.8",
         "mgu-inputgate": "1.0.0",
         "idrive7-renderd": "2.1.10"
       },

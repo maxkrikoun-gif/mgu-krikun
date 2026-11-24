@@ -11,10 +11,15 @@ TICK=${KRIKUN_XRAY_TICK:-5}
 export GOGC=${GOGC:-30} GOMEMLIMIT=${GOMEMLIMIT:-96MiB}
 child=
 said=
-cfg_ok=
+cfg_sig=
 
 say() {
-	[ "$1" = "$said" ] || { echo "$1"; printf '%s\n' "$1" >"$ST"; said=$1; }
+	[ "$1" = "$said" ] || {
+		echo "$1"
+		printf '%s\n' "$1" >"$ST"
+		chmod 0644 "$ST" 2>/dev/null || true
+		said=$1
+	}
 }
 stopchild() { [ -n "$child" ] && kill "$child" 2>/dev/null && wait "$child" 2>/dev/null; child=; }
 trap 'stopchild; exit 0' TERM INT
@@ -27,14 +32,17 @@ loop() {
 		return
 	fi
 	[ -r "$CFG" ] || { say "idle: нет прав на $CFG"; stopchild; sleep "$TICK"; return; }
-	if [ "$cfg_ok" != "$CFG" ]; then
+	sig=$(stat -c %Y "$CFG" 2>/dev/null) || sig=
+	if [ "$cfg_sig" != "$sig" ]; then
 		if ! "$BIN" run -test -c "$CFG" >/dev/null 2>&1; then
 			say "idle: config.json не прошёл xray -test (проверь JSON и inbound 127.0.0.1)"
 			stopchild
+			cfg_sig=
 			sleep "$TICK"
 			return
 		fi
-		cfg_ok=$CFG
+		cfg_sig=$sig
+		stopchild
 	fi
 	if [ -z "$child" ]; then
 		"$BIN" run -c "$CFG" &
@@ -50,5 +58,4 @@ loop() {
 }
 
 mkdir -p "$R"
-umask 077
 while :; do loop; done

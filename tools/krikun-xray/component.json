@@ -1,7 +1,7 @@
 {
   "id": "krikun-xray",
   "kind": "tool",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "title": "Krikun Xray",
   "description": "Xray SOCKS5 на 127.0.0.1:1080 для обхода блокировок (VLESS/Reality). Конфиг только на ГУ, импорт с USB или из приложения «Krikun: сеть».",
@@ -40,6 +40,6 @@
     { "unit": "krikun-xray.service", "target": "multi-user.target" },
     { "unit": "krikun-xray-ctl.service", "target": "multi-user.target" }
   ],
-  "recmgr": ["krikun-xray"],
+  "recmgr": ["krikun-xray", "krikun-xray-ctl"],
   "restart": ["krikun-xray.service", "krikun-xray-ctl.service"]
 }
