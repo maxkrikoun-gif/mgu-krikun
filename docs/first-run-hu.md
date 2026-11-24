@@ -4,7 +4,7 @@
 
 Перед push (unit-app): `python3 scripts/validate-mgu-app.py` — те же правила, что `mgu-updater` / `tools/oap_link.js` на ГУ (`modules` = пути **от** `apps/<id>/`, например `package/javascript/app.js`, не `javascript/...`; версия = `package/package.json`).
 
-Порядок: **Node.js 22 (22.23.4)** → **Krikun Xray (0.0.3)** → **Krikun: сеть (0.0.3)** → **YouT (сервис) 0.5.5** → **YouT 0.6.5** → **Filmix (сервис) 0.0.3** → **FilmixProMax 0.0.3**.
+Порядок: **Node.js 22 (22.23.4)** → **Krikun Xray (0.0.4)** → **Krikun: сеть (0.0.3)** → **YouT (сервис) 0.5.5** → **YouT 0.6.5** → **Filmix (сервис) 0.0.3** → **FilmixProMax 0.0.3**.
 
 **Перед push:** один раз `python3 scripts/preflight-store.py` (10 проходов audit + validate + graph).
 

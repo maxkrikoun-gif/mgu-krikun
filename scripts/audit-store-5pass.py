@@ -169,6 +169,20 @@ def pass5_runtime_smoke() -> tuple[list[str], list[str]]:
                 head = src.read_bytes()[:64]
                 if LFS.search(head):
                     errs.append(f"pass5: {t['id']} {src.name} — LFS pointer в git")
+                if ent.get("path") in ("xray", "bin/node") and head[:4] != b"\x7fELF":
+                    errs.append(f"pass5: {t['id']} {src.name} не ELF (на ГУ exec fail)")
+                if src.name == "xray" and b"Mach-O" in head or (
+                    src.suffix != ".gz" and head[:4] not in (b"\x7fELF", b"#!/")
+                    and ent.get("mode", "").startswith("075")
+                    and src.name not in ("krikun-runas",)
+                ):
+                    pass  # shell scripts in files[] — from *.sh
+
+    xray_bin = ROOT / "tools/krikun-xray/prebuilt/xray"
+    if xray_bin.is_file():
+        probe = subprocess.run(["file", "-b", str(xray_bin)], capture_output=True, text=True)
+        if "x86-64" not in probe.stdout or "ELF" not in probe.stdout:
+            errs.append(f"pass5: krikun-xray/xray: {probe.stdout.strip()}")
 
     if t_id := "jap-node22":
         asm = ROOT / "tools/jap-node22/assemble.sh"
