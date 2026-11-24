@@ -26,6 +26,7 @@ def main() -> int:
         "validate-component-json.py",
         "simulate-hu-tool.py",
         "simulate-oap-pack.py",
+        "test_hu_oap_tgz.py",
         "audit-mgu-architecture.py",
         "audit-store-5pass.py",
     ):

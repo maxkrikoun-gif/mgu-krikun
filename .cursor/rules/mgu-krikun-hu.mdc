@@ -13,7 +13,9 @@ alwaysApply: true
 python3 scripts/preflight-store.py
 ```
 
-Должен быть зелёным (в т.ч. pass 11 `scripts/audit-mgu-architecture.py`, `validate-mgu-app.py`, `simulate-oap-pack.py`, `audit-store-5pass.py`).
+Должен быть зелёным (в т.ч. pass 11 `scripts/audit-mgu-architecture.py`, `validate-mgu-app.py`, `simulate-oap-pack.py`, `test_hu_oap_tgz.py`, `audit-store-5pass.py`).
+
+- **Никогда** не рекомендовать установку на ГУ без локального `pack-staged-app.js` + зелёного `preflight-store.py` (в т.ч. корневой `package.json` в `.tgz`).
 
 ## Apps — oap_link / oap_pack
 

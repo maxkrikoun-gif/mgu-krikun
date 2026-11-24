@@ -15,6 +15,8 @@ const fs = require('fs');
 const path = require('path');
 const { pack } = require('../tools/oap_pack.js');
 
+const HU_ERR = 'no package.json';
+
 function fail(msg) {
     process.stderr.write(`${msg}\n`);
     process.exit(1);
@@ -39,6 +41,9 @@ if (!fs.existsSync(path.join(pkgDir, 'package.json'))) {
 const name = `${spec.id}@${spec.version}.tgz`;
 const outFile = path.join(appDir, name);
 const files = pack(pkgDir, outFile);
+if (files.indexOf('package.json') === -1) {
+    fail(`${appRel}: pack без корневого package.json (${name}: ${HU_ERR})`);
+}
 const distDir = path.join(repoRoot, 'dist');
 fs.mkdirSync(distDir, { recursive: true });
 fs.copyFileSync(outFile, path.join(distDir, name));
