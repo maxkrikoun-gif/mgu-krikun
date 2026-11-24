@@ -28,9 +28,9 @@ maxkrikoun-gif/mgu-krikun
 
 Связь Xray ↔ RideTube только через `proxy = socks5://127.0.0.1:1080` — [components-separate.md](components-separate.md).
 
-**Правило:** [russian-only.md](russian-only.md) — **все** пункты меню и тексты Store для **каждого** пакета из нашего catalog.
+**Правило:** [russian-only.md](russian-only.md) — **все** пункты меню и тексты Store для **каждого** пакета из `main`.
 
-Пока catalog не опубликован — в Store только документация; релиз **`catalog`** — когда русификация проверена на **всём** наборе.
+Установка — сразу после добавления источника и обновления ветки `main` (без отдельного релиза GitHub).
 
 ## Proxy
 

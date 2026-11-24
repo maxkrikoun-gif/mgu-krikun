@@ -272,35 +272,21 @@ def pass8_krikun_xray_units() -> tuple[list[str], list[str]]:
     return errs, []
 
 
-def pass9_catalog_json() -> tuple[list[str], list[str]]:
-    """Проход 9: dist/catalog не врёт о версиях (если файл есть)."""
+def pass9_no_catalog_channel() -> tuple[list[str], list[str]]:
+    """Проход 9: Store только branch:main — без dist/catalog и publish-скриптов."""
     errs: list[str] = []
     warns: list[str] = []
-    cat = ROOT / "dist/catalog/catalog.json"
-    if not cat.is_file():
-        warns.append("pass9: нет dist/catalog/catalog.json (только main — ок)")
-        return errs, warns
-    repo = json.loads((ROOT / "mgu-repo.json").read_text())
-    want: dict[str, str] = {}
-    for t in repo.get("tools", []):
-        comp = json.loads((ROOT / t["path"] / "component.json").read_text())
-        want[comp["id"]] = str(comp["version"])
-    for c in repo.get("components", []):
-        want[c["id"]] = json.loads((ROOT / c["path"] / "app.json").read_text())["version"]
-    data = json.loads(cat.read_text())
-    for ent in data.get("components") or data.get("catalog") or []:
-        if not isinstance(ent, dict):
-            continue
-        cid = ent.get("id")
-        if cid not in want:
-            continue
-        av = str(ent.get("version") or ent.get("spec", {}).get("version") or "")
-        blob = ent.get("artifact") or ent.get("spec", {}).get("artifact") or {}
-        name = str(blob.get("name") or "")
-        if av and av != want[cid]:
-            warns.append(f"pass9: catalog {cid} version {av} != repo {want[cid]}")
-        if want[cid] not in name and name:
-            warns.append(f"pass9: catalog artifact {name} не содержит @{want[cid]}")
+    if (ROOT / "dist/catalog/catalog.json").is_file():
+        errs.append(
+            "pass9: dist/catalog/catalog.json в git — второй канал Store запрещён (только main)"
+        )
+    for rel in (
+        "scripts/catalog-release.py",
+        "scripts/publish-catalog-release.sh",
+        "docs/catalog-release.md",
+    ):
+        if (ROOT / rel).is_file():
+            errs.append(f"pass9: {rel} — удалить (канал GitHub Release catalog запрещён)")
     return errs, warns
 
 
@@ -350,7 +336,7 @@ def main() -> int:
         "systemd (runas / NoNewPrivileges)",
         "check.sh на mock current/",
         "krikun-xray systemd (NoNewPrivileges)",
-        "dist/catalog vs repo",
+        "нет канала catalog (только main)",
         "check.sh MGU_TOOL_* hooks",
         "MGU architecture (ELF/recmgr/…)",
     )
@@ -363,7 +349,7 @@ def main() -> int:
         pass6_systemd,
         pass7_mock_checks,
         pass8_krikun_xray_units,
-        pass9_catalog_json,
+        pass9_no_catalog_channel,
         pass10_check_preflight_hooks,
         pass11_mgu_architecture,
     )

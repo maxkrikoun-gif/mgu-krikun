@@ -1,5 +1,5 @@
 ---
-description: MGU iDrive7 HU — preflight, oap_link, tools, catalog (чеклист)
+description: MGU iDrive 7 HU — preflight, oap_link, tools, Store main-only (чеклист)
 alwaysApply: true
 ---
 
@@ -39,3 +39,10 @@ python3 scripts/preflight-store.py
 - Только **ID7** (`mguHmi: ["ID7"]`); idrive8 — только по явному запросу.
 - Порядок установки на ГУ: [docs/first-run-hu.md](../docs/first-run-hu.md).
 - Один источник Store `maxkrikoun-gif/mgu-krikun`; git/SSH — `~/.ssh/mgu_krikun`; русификация — [docs/russian-only.md](../docs/russian-only.md).
+
+### Канал поставки (только `main`)
+
+- **Единственный** канал: ветка **`main`** (`mgu-repo.json` repo tree). ГУ качает дерево и собирает `.tgz` на месте (`pack-staged-app.js` → `preparePackage`).
+- **Запрещено** без явного запроса владельца: GitHub Release с тегом `catalog`, `dist/catalog/`, `scripts/catalog-release.py`, второй параллельный пайплайн упаковки, дублирующий `main`.
+- **Запрещено** для App Kit на ветке: `"build": "unit"` (`oap_link.build` ломает `require('oap-sdk')` в `kit/mgu.js`). Использовать `package/` в git + `scripts/pack-staged-app.js` в `mgu-repo.json`.
+- Новые способы публикации — только после явного «да» пользователя в чате.

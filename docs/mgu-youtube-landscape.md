@@ -86,7 +86,7 @@
 
 ## 4. Что такое `jap_ridetube` в `mgu-krikun` (`/Users/m.krikun/bmw`)
 
-По результатам проверки скриптов и документации этого репозитория ([docs/store-single-source.md](store-single-source.md), [docs/ridetube-adaptation.md](ridetube-adaptation.md), [docs/ridetube-krikun-patches.md](ridetube-krikun-patches.md), `scripts/fetch-ridetube.py`, `scripts/apply-ridetube-patches.py`, `scripts/verify-ridetube.py`, `scripts/catalog-release.py`):
+По результатам проверки скриптов и документации этого репозитория ([docs/store-single-source.md](store-single-source.md), [docs/ridetube-adaptation.md](ridetube-adaptation.md), [docs/ridetube-krikun-patches.md](ridetube-krikun-patches.md), `scripts/fetch-ridetube.py`, `scripts/apply-ridetube-patches.py`, `scripts/verify-ridetube.py`, `scripts/pack-staged-app.js`):
 
 1. **Способ включения в репозиторий — прямой вендоринг файлов (не git-fork и не git-submodule/subtree):**
    - `scripts/fetch-ridetube.py` скачивает дерево ветки `main` из `JustAnotherPU/ridetube` через GitHub Trees/Raw API прямо в корень `mgu-krikun`:
@@ -97,8 +97,8 @@
    - `scripts/verify-ridetube.py` сверяет локальные файлы с git blob SHA-1 апстрима, контролируя, что отличаются только явно пропатченные файлы.
 
 2. **Архитектура поставки для MGU Store («один источник»):**
-   - В `mgu-repo.json` и `scripts/catalog-release.py` пакет `jap_ridetube` оформлен как **`unit-app`** с готовым деревом `apps/jap_ridetube/package/` (линковка `oap_link` на ГУ против штатного SDK авто без запуска тяжёлого `build.py` на голове и без `oap-sdk` в git).
-   - Текущие версии в `dist/catalog/catalog.json`: **`jap_ridetube@0.6.6`** + **`jap-ridetube-d@0.5.6`**.
+   - В `mgu-repo.json` пакет `jap_ridetube` ставится с ветки `main` через `scripts/pack-staged-app.js` и готовое дерево `apps/jap_ridetube/package/` (`preparePackage` на ГУ, без `build.py` и без `oap-sdk` в git).
+   - Текущие версии: **`jap_ridetube@0.6.7`** + **`jap-ridetube-d@0.5.6`** (`app.json` / `component.json`).
    - Среда выполнения **`jap-node22@22.23.4`** встроена прямо в этот же репозиторий (`tools/jap-node22`), поэтому пользователю в MGU Store не нужно добавлять ни `JustAnotherPU/ridetube`, ни `JustAnotherPU/mgu-apps` — только `maxkrikoun-gif/mgu-krikun`.
 
 3. **Собственные патчи `mgu-krikun` (`scripts/apply-ridetube-patches.py`):**

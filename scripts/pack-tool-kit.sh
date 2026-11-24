@@ -8,7 +8,7 @@ HU="${MGU_STORE}/deploy/hu"
 OUT_DIR="${2:-$TOOL_DIR/dist}"
 mkdir -p "$OUT_DIR"
 if [[ ! -x "$HU" ]] && [[ ! -f "$HU" ]]; then
-  echo "pack-tool-kit: нет $HU — задайте MGU_STORE или дождитесь catalog-release.py (клонирует store)" >&2
+  echo "pack-tool-kit: нет $HU — задайте MGU_STORE (deploy/hu из robertnisipeanu/mgu-store)" >&2
   exit 1
 fi
 node "$HU" artifact "$TOOL_DIR" --out "$OUT_DIR"

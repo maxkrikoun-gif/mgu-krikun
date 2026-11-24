@@ -1,7 +1,7 @@
 'use strict';
 /**
  * Pack apps/<id>/package/ into <id>@<version>.tgz (oap_pack flat layout).
- * Node 8 on the HU; same bytes for branch:main build and catalog-release.
+ * Node 8 on the HU; единственный путь упаковки App Kit на branch:main (preparePackage).
  *
  * mgu-repo.json:
  *   "build": {

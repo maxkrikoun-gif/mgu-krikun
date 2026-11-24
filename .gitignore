@@ -7,7 +7,8 @@ vpn://*
 secrets/
 private-keys/
 
-# OAP SDK BMW (нельзя публиковать) — кроме desktop-stub для catalog-release
+# OAP SDK BMW (нельзя публиковать) — кроме desktop-stub для локальной сборки
+dist/catalog/
 oap-sdk/*
 !oap-sdk/README.md
 !oap-sdk/package.json

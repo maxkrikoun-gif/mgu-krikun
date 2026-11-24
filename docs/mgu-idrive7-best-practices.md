@@ -18,7 +18,7 @@
 
 ## 1. Store, catalog и упаковка пакетов (`64 MiB`, `files[]`, `unit` vs `build` на ГУ)
 
-По спецификации [`robertnisipeanu/mgu-store`](https://github.com/robertnisipeanu/mgu-store/blob/main/docs/PUBLISHING.md) источник в MGU Store работает в одном из трёх режимов: **Releases** (`<id>@<semver>.tgz` в ассетах), **Catalog** (`catalog.json` в релизе с тегом `catalog` или по HTTPS/USB) либо **Repo tree** (`mgu-repo.json` в корне ветки).
+По спецификации [`robertnisipeanu/mgu-store`](https://github.com/robertnisipeanu/mgu-store/blob/main/docs/PUBLISHING.md) источник в MGU Store может быть в режимах **Releases**, **Catalog** или **Repo tree**. **`mgu-krikun` использует только Repo tree** (ветка `main`, `mgu-repo.json`); второй канал Catalog для этого репо запрещён контрактом.
 
 ### Ключевые инженерные правила упаковки
 
@@ -229,5 +229,5 @@ function requiresOf(source) {
 
 ```bash
 python3 scripts/preflight-store.py          # обязательный preflight (11 проходов) перед push в main
-python3 scripts/catalog-release.py --fast   # пересборка зеркала dist/catalog/ при смене версий
+python3 scripts/preflight-store.py          # обязательно перед push (11 проходов)
 ```

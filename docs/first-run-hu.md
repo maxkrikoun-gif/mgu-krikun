@@ -1,15 +1,16 @@
 # Первый запуск на ГУ (iDrive 7)
 
-**Источники Store:** `maxkrikoun-gif/mgu-krikun`
+**Единственный источник Store:** `maxkrikoun-gif/mgu-krikun`, ветка **`main`** (режим repo tree, `mgu-repo.json` в корне).
 
-- **Рекомендуется:** Releases → тег **`catalog`** (готовые `.tgz`, без сборки `oap_link.build` на ГУ).
-- **Ветка `main`:** после обновления репо приложения тоже ставятся через `pack-staged-app.js` → `preparePackage` (не `build: "unit"`).
+Не добавлять релиз GitHub с тегом `catalog` и не дублировать этот репозиторий вторым источником.
 
-Если на ГУ ошибки вида `built-*@.tgz: no package.json` или `requires "./health": not an app module` — источник тянет старый `mgu-repo.json` с `build: "unit"`; обновите репо на ГУ и/или добавьте второй источник **catalog** и установите оттуда.
+Приложения ставятся через `scripts/pack-staged-app.js` на ГУ → `oap_link.preparePackage` (готовое `package/` в git, **не** `build: "unit"`).
+
+Если на ГУ ошибки вида `built-*@.tgz: no package.json` или `requires "./health": not an app module` — на ГУ старый `mgu-repo.json` с `build: "unit"`; обновите источник (pull `main`).
 
 Полный контекст практик: [mgu-idrive7-best-practices.md](mgu-idrive7-best-practices.md).
 
-## Версии в catalog (сейчас)
+## Версии на main (сейчас)
 
 | Порядок | id | version | kind |
 |--------:|-----|---------|------|
@@ -20,9 +21,10 @@
 | 4 | jap_ridetube (YouT) | 0.6.7 | app |
 | 5 | jap-filmix-d | 0.0.3 | tool |
 | 6 | filmix_promax | 0.0.5 | app |
-| 7 | mgu-render-id7-touch | 1.4.0 | tool (опционально) |
 
 **Из других источников Store (до apps):** mgu-store (`mgu-render` **0.6.11**, `mgu-inputgate` **1.0.0**, …), idrive7-apps (**idrive7-renderd** **2.1.10** для Krikun: сеть и FilmixProMax).
+
+**Касание на весь экран** (`mgu-render-id7-touch`, опционально): из **idrive7-apps** или **mgu-store**, не из этого репо. Нужен для полной ширины YouT; без него Health check предложит установить из Store.
 
 ## Порядок установки
 
@@ -33,8 +35,6 @@
 5. **Filmix (сервис)** jap-filmix-d → **FilmixProMax**
 
 Apps — готовый `package/` в git, упаковка `scripts/pack-staged-app.js` (режим **preparePackage**). После правок на Mac: `python3 scripts/sync-unit-package.py <id> --strip-locale-suffix` при необходимости.
-
-**Касание на весь экран** (`mgu-render-id7-touch`, опционально): в UI Store только из **catalog** (флаг `optional`). Нужен для полной ширины YouT; без него Health check предложит установить из Store.
 
 ## Proxy (обход блокировок)
 
@@ -56,8 +56,6 @@ proxy = socks5://127.0.0.1:1080
 ```bash
 python3 scripts/validate-mgu-app.py    # unit-apps, modules[]
 python3 scripts/preflight-store.py     # 11 проходов — обязательно OK
-# при смене версий / tgz:
-python3 scripts/catalog-release.py --fast
 ```
 
 Private repo: GitHub token в настройках Store на ГУ. **Node 22** — части `node.part.*` в git, на install собирается `bin/node` (Git LFS на ГУ не нужен).
