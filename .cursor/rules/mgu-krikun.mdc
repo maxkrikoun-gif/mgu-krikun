@@ -1,0 +1,11 @@
+---
+description: Единый MGU-каталог mgu-krikun, Xray, полная русификация
+globs:
+  - "**/*"
+---
+
+# mgu-krikun
+
+Детальный HU-чеклист (preflight, oap_link, runas): **[mgu-krikun-hu.mdc](mgu-krikun-hu.mdc)** — он `alwaysApply`.
+
+Контракт: [CONSTRAINTS.md](../CONSTRAINTS.md) · один источник Store · русификация · Xray, не WireGuard · секреты Amnezia не в git.

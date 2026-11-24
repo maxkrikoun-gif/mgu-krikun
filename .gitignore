@@ -23,7 +23,9 @@ scripts/*.local
 .DS_Store
 .idea/
 .vscode/
-.cursor/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 vendor/
 !native/jap-ridetube-d/vendor/
 !native/jap-ridetube-d/vendor/**

@@ -22,7 +22,8 @@
 
 Схема repo tree: [docs/main-repo-tree.md](docs/main-repo-tree.md).  
 Первый запуск (iDrive 7): [docs/first-run-hu.md](docs/first-run-hu.md).  
-Практики экосистемы (ID7): [docs/mgu-idrive7-best-practices.md](docs/mgu-idrive7-best-practices.md).
+Практики экосистемы (ID7): [docs/mgu-idrive7-best-practices.md](docs/mgu-idrive7-best-practices.md).  
+Чеклист для Cursor: `.cursor/rules/mgu-krikun-hu.mdc` (`alwaysApply`).
 
 ## Цепочка сети
 

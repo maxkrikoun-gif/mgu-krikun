@@ -1,6 +1,6 @@
 # MGU / iDrive 7 — практики (только ID7)
 
-Краткий чеклист для агентов: [`.cursor/rules/mgu-krikun.mdc`](../.cursor/rules/mgu-krikun.mdc).  
+Краткий чеклист для агентов: [`.cursor/rules/mgu-krikun-hu.mdc`](../.cursor/rules/mgu-krikun-hu.mdc) (`alwaysApply`).  
 Жёсткие обязательства: [CONSTRAINTS.md](../CONSTRAINTS.md).  
 Первый запуск: [first-run-hu.md](first-run-hu.md).
 

@@ -1,0 +1,41 @@
+---
+description: MGU iDrive7 HU — preflight, oap_link, tools, catalog (чеклист)
+alwaysApply: true
+---
+
+# MGU HU (iDrive 7)
+
+Контракт: [CONSTRAINTS.md](../CONSTRAINTS.md). Обоснование: [docs/mgu-idrive7-best-practices.md](../docs/mgu-idrive7-best-practices.md).
+
+## Перед push в `main`
+
+```bash
+python3 scripts/preflight-store.py
+```
+
+Должен быть зелёным (в т.ч. pass 11 `scripts/audit-mgu-architecture.py`, `validate-mgu-app.py`, `simulate-oap-pack.py`, `audit-store-5pass.py`).
+
+## Apps — oap_link / oap_pack
+
+- `mgu-app.json` → `modules[]`: пути **от** `apps/<id>/`, entry **первым**; как `tools/oap_link.js` на ГУ.
+- `require("./kit/...")` — **двойные** кавычки; остальные app-модули — `require('./foo.js')`.
+- Версии: `app.json` = `mgu-app.json` = `package/package.json` (`name`, semver `x.y.z`).
+- `package/package.json` — непустой `files[]` (`python3 scripts/generate-oap-files-list.py <id>` при смене дерева).
+- Локально: `python3 scripts/validate-mgu-app.py`, `python3 scripts/simulate-oap-pack.py`.
+
+## Tools / native — component.json
+
+- Каждый `files[]` / `from` — реальный файл **в git** внутри каталога компонента; `vendor/` не в `.gitignore`.
+- `python3 scripts/validate-component-json.py`; `recmgr` ↔ `units[].name`.
+
+## Internet tools (krikun-xray, jap-*-d, …)
+
+- В systemd **никогда** `User=<uid>` — на ГУ нет passwd; запуск через **ELF** `krikun-runas` / `jap-runas` (setuid).
+- `prebuilt/*` — только **linux/amd64 ELF**, не Mach-O.
+- Только **Xray**; wireguard/wireproxy — не в unit и не в tracked-артефактах.
+
+## Платформа и Store
+
+- Только **ID7** (`mguHmi: ["ID7"]`); idrive8 — только по явному запросу.
+- Порядок установки на ГУ: [docs/first-run-hu.md](../docs/first-run-hu.md).
+- Один источник Store `maxkrikoun-gif/mgu-krikun`; git/SSH — `~/.ssh/mgu_krikun`; русификация — [docs/russian-only.md](../docs/russian-only.md).
