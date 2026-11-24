@@ -19,13 +19,9 @@
 ## Store на ГУ
 
 ```text
-Добавить источник → maxkrikoun-gif/mgu-krikun → ветка main
-(для private — GitHub token в настройках Store)
-```
+Добавить источник → maxkrikoun-gif/mgu-krikun (Store сам читает **main**).
 
-**Не** дублируй тот же репо как Releases/`catalog` — один источник, одна ветка.
-
-Детали: [docs/store-single-source.md](docs/store-single-source.md). Первый запуск: [docs/first-run-hu.md](docs/first-run-hu.md).
+Схема repo tree: [docs/main-repo-tree.md](docs/main-repo-tree.md). Первый запуск: [docs/first-run-hu.md](docs/first-run-hu.md).
 
 ## Цепочка сети
 
