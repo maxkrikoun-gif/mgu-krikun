@@ -4,7 +4,7 @@
  * Экраны: главная (старт/стоп), импорт (носитель + файл), удалить конфиг.
  */
 const fs = require('fs');
-const netctl = require('./netctl_client');
+const netctl = require('./netctl_client.js');
 
 const CONF = '/var/opt/krikun-xray/conf/config.json';
 const STATE = '/run/krikun-xray/s/state';
@@ -201,7 +201,7 @@ module.exports = {
 	formatTestResult,
 };
 
-const mgu = require('./kit/mgu');
+const mgu = require("./kit/mgu");
 
 mgu.run({
 	async start(ctx) {

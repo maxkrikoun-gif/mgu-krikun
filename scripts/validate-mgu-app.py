@@ -10,6 +10,34 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 APP_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 SEMVER = re.compile(r"^\d+\.\d+\.\d+$")
+REQ_SQ = re.compile(r"""require\s*\(\s*'([^']+)'\s*\)""")
+NODE_BUILTINS = frozenset(
+    {
+        "fs",
+        "path",
+        "crypto",
+        "net",
+        "events",
+        "zlib",
+        "util",
+        "os",
+        "child_process",
+        "http",
+        "https",
+        "url",
+        "stream",
+        "buffer",
+        "string_decoder",
+        "assert",
+        "dns",
+        "tls",
+        "querystring",
+        "dgram",
+        "readline",
+        "vm",
+        "module",
+    }
+)
 
 
 def safe_rel(p: str) -> bool:
@@ -90,6 +118,33 @@ def validate_app_dir(app_dir: Path) -> list[str]:
             errs.append(
                 f"{pref}: first module {first!r} should be entry {main_path!r} (package.json main)"
             )
+
+    # oap_link на ГУ (build на head unit): ids = ./<basename>; см. robertnisipeanu/mgu-store tools/oap_link.js
+    if app_dir.name != "krikun_seti" or not isinstance(modules, list):
+        return errs
+    if isinstance(modules, list):
+        ids = {f"./{Path(f).name}" for f in modules}
+        sdk_list = m.get("sdk") if isinstance(m.get("sdk"), list) else []
+        for rel in modules:
+            text = (app_dir / rel).read_text(encoding="utf-8", errors="replace")
+            for name in REQ_SQ.findall(text):
+                if name in ids or name in sdk_list or name in NODE_BUILTINS:
+                    continue
+                if name.startswith("./kit/") or name.startswith("../"):
+                    errs.append(
+                        f"{pref}: {rel}: require('{name}') — на ГУ oap_link; "
+                        f"для kit используй require(\"{name}\") (двойные кавычки)"
+                    )
+                else:
+                    base = Path(name).name
+                    if not name.endswith(".js") and f"./{base}" in ids:
+                        errs.append(
+                            f"{pref}: {rel}: require('{name}') → require('./{base}') для oap_link"
+                        )
+                    else:
+                        errs.append(
+                            f"{pref}: {rel}: require('{name}') — не модуль, не sdk (oap_link на ГУ)"
+                        )
 
     return errs
 

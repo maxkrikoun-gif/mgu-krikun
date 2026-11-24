@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "krikun_seti",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "tree": "package",
   "modules": [
     "package/javascript/app.js",
