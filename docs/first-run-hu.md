@@ -10,6 +10,8 @@
 
 Apps **unit** (готовый `package/` в git, без `build.py` на ГУ). После `build.py` на Mac: `python3 scripts/sync-unit-package.py <id> --strip-locale-suffix`.
 
-База: mgu-store, idrive7-apps.
+База: **mgu-store** (`mgu-render`, `mgu-inputgate`, …) и **idrive7-apps** (**idrive7-renderd** 2.1.10 — до Krikun: сеть и FilmixProMax).
+
+Перед push: `python3 scripts/audit-store-5pass.py` (5 проходов) или `python3 scripts/preflight-store.py`.
 
 Private: GitHub token в Store (private repo). **Node.js 22** — бинарник частями `node.part.*`, при install `check.sh` собирает `bin/node` (Git LFS на ГУ не используется).

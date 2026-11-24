@@ -27,5 +27,10 @@ scripts/*.local
 vendor/
 # apps/*/package/ — в git (unit на ГУ)
 tools/jap-node22/build/
+tools/jap-node22/bin/
+tools/jap-node22/prebuilt/node
+tools/jap-node22/prebuilt/node.part.??
+tools/krikun-xray/dist/
+tools/krikun-xray/build/
 native/jap-filmix-d/dist/
 tools/jap-node22/prebuilt/node

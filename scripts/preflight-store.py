@@ -21,7 +21,12 @@ def main() -> int:
     errs: list[str] = []
     warns: list[str] = []
 
-    for script in ("validate-mgu-app.py", "validate-component-json.py", "simulate-hu-tool.py"):
+    for script in (
+        "validate-mgu-app.py",
+        "validate-component-json.py",
+        "simulate-hu-tool.py",
+        "audit-store-5pass.py",
+    ):
         p = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], capture_output=True, text=True)
         print(p.stdout, end="")
         if p.returncode:

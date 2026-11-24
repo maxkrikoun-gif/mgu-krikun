@@ -2,7 +2,7 @@
 [Unit]
 Description=jap-filmix-d: Filmix auth and API daemon
 RequiresMountsFor=/var/opt
-After=local-fs.target jap-node22.service
+After=local-fs.target
 
 [Service]
 User=root

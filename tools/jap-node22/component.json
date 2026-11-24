@@ -4,21 +4,21 @@
   "version": "22.23.4",
   "license": "MIT",
   "title": "Node.js 22",
-  "description": "Node.js 22 LTS (glibc-217). Бинарник в репо частями node.part.* (Store не тянет Git LFS).",
+  "description": "Node.js 22 LTS (glibc-217). Бинарник gz-частями (~48 MiB git), assemble → bin/node.",
   "requires": { "mgu-deploy": "0.7.0" },
   "uninstallable": true,
   "mguHmi": ["ID7"],
   "texts": {
     "ru": {
       "title": "Node.js 22",
-      "description": "Node 22 для YouT/Filmix. После установки check собирает bin/node из частей."
+      "description": "Node 22 для YouT/Filmix. check собирает bin/node из node.part.*.gz."
     }
   },
   "files": [
-    { "path": "node.part.aa", "from": "prebuilt/node.part.aa", "mode": "0644" },
-    { "path": "node.part.ab", "from": "prebuilt/node.part.ab", "mode": "0644" },
-    { "path": "node.part.ac", "from": "prebuilt/node.part.ac", "mode": "0644" },
-    { "path": "node.part.ad", "from": "prebuilt/node.part.ad", "mode": "0644" },
+    { "path": "node.part.aa.gz", "from": "prebuilt/node.part.aa.gz", "mode": "0644" },
+    { "path": "node.part.ab.gz", "from": "prebuilt/node.part.ab.gz", "mode": "0644" },
+    { "path": "node.part.ac.gz", "from": "prebuilt/node.part.ac.gz", "mode": "0644" },
+    { "path": "node.part.ad.gz", "from": "prebuilt/node.part.ad.gz", "mode": "0644" },
     { "path": "assemble.sh", "from": "assemble.sh", "mode": "0755" },
     { "path": "LICENSE", "from": "prebuilt/LICENSE", "mode": "0644" },
     { "path": "check.sh", "from": "check.sh", "mode": "0755" }
