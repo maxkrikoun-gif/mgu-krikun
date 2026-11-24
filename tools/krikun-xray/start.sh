@@ -8,8 +8,10 @@ BIN=${KRIKUN_XRAY_BIN:-/var/opt/krikun-xray/current/xray}
 CFG=$D/config.json
 ST=$R/state
 TICK=${KRIKUN_XRAY_TICK:-5}
+export GOGC=${GOGC:-30} GOMEMLIMIT=${GOMEMLIMIT:-96MiB}
 child=
 said=
+cfg_ok=
 
 say() {
 	[ "$1" = "$said" ] || { echo "$1"; printf '%s\n' "$1" >"$ST"; said=$1; }
@@ -25,6 +27,15 @@ loop() {
 		return
 	fi
 	[ -r "$CFG" ] || { say "idle: нет прав на $CFG"; stopchild; sleep "$TICK"; return; }
+	if [ "$cfg_ok" != "$CFG" ]; then
+		if ! "$BIN" run -test -c "$CFG" >/dev/null 2>&1; then
+			say "idle: config.json не прошёл xray -test (проверь JSON и inbound 127.0.0.1)"
+			stopchild
+			sleep "$TICK"
+			return
+		fi
+		cfg_ok=$CFG
+	fi
 	if [ -z "$child" ]; then
 		"$BIN" run -c "$CFG" &
 		child=$!

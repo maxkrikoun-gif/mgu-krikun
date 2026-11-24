@@ -9,7 +9,7 @@
 | Порядок | id | version | kind |
 |--------:|-----|---------|------|
 | 0 | jap-node22 | 22.23.4 | tool |
-| 1 | krikun-xray | 0.0.5 | tool |
+| 1 | krikun-xray | 0.0.6 | tool |
 | 2 | krikun_seti | 0.0.5 | app |
 | 3 | jap-ridetube-d | 0.5.6 | tool |
 | 4 | jap_ridetube (YouT) | 0.6.6 | app |
