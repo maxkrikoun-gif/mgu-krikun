@@ -2,7 +2,7 @@
   "id": "krikun_seti",
   "title": "Krikun: сеть",
   "description": "Включение обхода, импорт Xray с USB, статус прокси для RideTube",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "vendor": "krikun",
   "loggingId": "KNET",
   "iconGlyph": "network",

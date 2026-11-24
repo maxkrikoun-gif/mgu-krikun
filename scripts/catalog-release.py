@@ -368,28 +368,37 @@ def app_dist_tgz(app_id: str) -> Path | None:
     return exact if exact.is_file() else None
 
 
-def is_unit_app(app_id: str) -> bool:
+def is_prebuilt_app(app_id: str) -> bool:
     repo = json.loads((ROOT / "mgu-repo.json").read_text(encoding="utf-8"))
     for c in repo.get("components", []):
         if c.get("id") == app_id:
-            return c.get("build") == "unit"
+            b = c.get("build")
+            if b == "unit":
+                return True
+            if isinstance(b, dict) and b.get("node") == "scripts/pack-staged-app.js":
+                return True
     return False
 
 
 def pack_unit_app(app_id: str) -> Path:
-    """apps/<id>/package/ → dist/<id>@<version>.tgz (формат npm, корень package/)."""
+    """apps/<id>/package/ → dist/<id>@<version>.tgz (oap_pack, плоский корень, как на ГУ)."""
     app = load_app_json(ROOT / "apps" / app_id / "app.json")
     ver = str(app["version"])
     pkg_parent = ROOT / "apps" / app_id
     if not (pkg_parent / "package" / "package.json").is_file():
-        sys.exit(f"unit {app_id}: нет package/package.json")
+        sys.exit(f"prebuilt {app_id}: нет package/package.json")
     dist = ROOT / "dist"
     dist.mkdir(parents=True, exist_ok=True)
     dest = dist / f"{app_id}@{ver}.tgz"
     for old in dist.glob(f"{app_id}@*.tgz"):
         if old != dest:
             old.unlink(missing_ok=True)
-    subprocess.check_call(["tar", "-czf", str(dest), "-C", str(pkg_parent), "package"])
+    subprocess.check_call(
+        ["node", str(ROOT / "scripts/pack-staged-app.js"), f"apps/{app_id}"],
+        cwd=ROOT,
+    )
+    if not dest.is_file():
+        sys.exit(f"pack-staged-app не создал {dest}")
     return dest
 
 
@@ -633,7 +642,7 @@ def main() -> None:
     app_ids = ("krikun_seti", "filmix_promax")
     for app_id in app_ids:
         app = load_app_json(ROOT / "apps" / app_id / "app.json")
-        if is_unit_app(app_id):
+        if is_prebuilt_app(app_id):
             cached = app_dist_tgz(app_id)
             need_pack = not (
                 args.fast

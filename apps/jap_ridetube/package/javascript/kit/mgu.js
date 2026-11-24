@@ -3,7 +3,7 @@
  * mgu.js - the MGU App Kit runtime. Sits on top of BMW's oap-sdk and gives an
  * app everything it needs in a few calls:
  *
- *   const mgu = require('./kit/mgu');
+ *   mgu.run({ async start(ctx) { ... } });
  *   mgu.run({
  *     async start(ctx) {
  *       ctx.ui.onClick('BTN_RESET', () => ...);

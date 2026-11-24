@@ -1,6 +1,11 @@
 # Первый запуск на ГУ (iDrive 7)
 
-**Один пользовательский источник Store:** `maxkrikoun-gif/mgu-krikun` (**main** или Releases → **catalog**).
+**Источники Store:** `maxkrikoun-gif/mgu-krikun`
+
+- **Рекомендуется:** Releases → тег **`catalog`** (готовые `.tgz`, без сборки `oap_link.build` на ГУ).
+- **Ветка `main`:** после обновления репо приложения тоже ставятся через `pack-staged-app.js` → `preparePackage` (не `build: "unit"`).
+
+Если на ГУ ошибки вида `built-*@.tgz: no package.json` или `requires "./health": not an app module` — источник тянет старый `mgu-repo.json` с `build: "unit"`; обновите репо на ГУ и/или добавьте второй источник **catalog** и установите оттуда.
 
 Полный контекст практик: [mgu-idrive7-best-practices.md](mgu-idrive7-best-practices.md).
 
@@ -10,11 +15,12 @@
 |--------:|-----|---------|------|
 | 0 | jap-node22 | 22.23.4 | tool |
 | 1 | krikun-xray | 0.0.8 | tool |
-| 2 | krikun_seti | 0.0.5 | app |
+| 2 | krikun_seti | 0.0.6 | app |
 | 3 | jap-ridetube-d | 0.5.6 | tool |
-| 4 | jap_ridetube (YouT) | 0.6.6 | app |
+| 4 | jap_ridetube (YouT) | 0.6.7 | app |
 | 5 | jap-filmix-d | 0.0.3 | tool |
-| 6 | filmix_promax | 0.0.4 | app |
+| 6 | filmix_promax | 0.0.5 | app |
+| 7 | mgu-render-id7-touch | 1.4.0 | tool (опционально) |
 
 **Из других источников Store (до apps):** mgu-store (`mgu-render` **0.6.11**, `mgu-inputgate` **1.0.0**, …), idrive7-apps (**idrive7-renderd** **2.1.10** для Krikun: сеть и FilmixProMax).
 
@@ -26,7 +32,9 @@
 4. **YouT (сервис)** jap-ridetube-d → **YouT** jap_ridetube
 5. **Filmix (сервис)** jap-filmix-d → **FilmixProMax**
 
-Apps — **unit** (`package/` в git). После правок на Mac: `python3 scripts/sync-unit-package.py <id> --strip-locale-suffix` при необходимости.
+Apps — готовый `package/` в git, упаковка `scripts/pack-staged-app.js` (режим **preparePackage**). После правок на Mac: `python3 scripts/sync-unit-package.py <id> --strip-locale-suffix` при необходимости.
+
+**Касание на весь экран** (`mgu-render-id7-touch`, опционально): в UI Store только из **catalog** (флаг `optional`). Нужен для полной ширины YouT; без него Health check предложит установить из Store.
 
 ## Proxy (обход блокировок)
 

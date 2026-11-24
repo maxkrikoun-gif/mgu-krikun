@@ -52,8 +52,13 @@ def pass1_catalog() -> tuple[list[str], list[str]]:
     ids: list[str] = []
     for c in repo.get("components", []):
         ids.append(c["id"])
-        if c.get("kind") == "app" and c.get("build") != "unit":
-            errs.append(f"pass1: {c['id']} не unit build (на ГУ снова build.py)")
+        if c.get("kind") == "app":
+            b = c.get("build")
+            ok_prebuilt = b == "unit" or (
+                isinstance(b, dict) and b.get("node") == "scripts/pack-staged-app.js"
+            )
+            if not ok_prebuilt:
+                errs.append(f"pass1: {c['id']} не prebuilt pack (unit или pack-staged-app.js)")
         p = ROOT / c["path"]
         if not (p / "mgu-app.json").is_file():
             errs.append(f"pass1: {c['id']} без mgu-app.json")

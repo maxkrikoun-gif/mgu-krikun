@@ -1,6 +1,6 @@
 {
   "name": "krikun_seti",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Включение обхода, импорт Xray с USB, статус прокси для RideTube",
   "main": "javascript/app.js",
   "private": false,

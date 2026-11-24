@@ -1,12 +1,17 @@
 {
   "schema": 1,
-  "comment": "unit-apps: package/ в git, без build.py на ГУ (нет -ru.1 / oapgen / 64 MiB). Сервис YouT: jap-ridetube-d — только файлы внутри native/jap-ridetube-d/.",
+  "comment": "App Kit apps: package/ в git, на ГУ pack-staged-app.js (preparePackage), без oap_link.build / mgu-app.json на ветке.",
   "components": [
     {
       "id": "krikun_seti",
       "kind": "app",
       "path": "apps/krikun_seti",
-      "build": "unit",
+      "build": {
+        "node": "scripts/pack-staged-app.js",
+        "args": ["{dir}"],
+        "output": "{dir}/{id}@{version}.tgz",
+        "shared": ["scripts/pack-staged-app.js", "tools/oap_pack.js"]
+      },
       "icon": "icon.png",
       "mguHmi": ["ID7"]
     },
@@ -14,7 +19,12 @@
       "id": "filmix_promax",
       "kind": "app",
       "path": "apps/filmix_promax",
-      "build": "unit",
+      "build": {
+        "node": "scripts/pack-staged-app.js",
+        "args": ["{dir}"],
+        "output": "{dir}/{id}@{version}.tgz",
+        "shared": ["scripts/pack-staged-app.js", "tools/oap_pack.js"]
+      },
       "icon": "icon.png",
       "mguHmi": ["ID7"]
     },
@@ -22,7 +32,12 @@
       "id": "jap_ridetube",
       "kind": "app",
       "path": "apps/jap_ridetube",
-      "build": "unit",
+      "build": {
+        "node": "scripts/pack-staged-app.js",
+        "args": ["{dir}"],
+        "output": "{dir}/{id}@{version}.tgz",
+        "shared": ["scripts/pack-staged-app.js", "tools/oap_pack.js"]
+      },
       "icon": "icon.png",
       "mguHmi": ["ID7"]
     }

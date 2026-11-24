@@ -119,11 +119,14 @@ def main() -> int:
         errs.append("jap-node22: нет node.part.* и нет prebuilt/node")
 
     for app in repo.get("components", []):
-        if app.get("build") != "unit":
+        if app.get("kind") != "app":
+            continue
+        b = app.get("build")
+        if b != "unit" and not (isinstance(b, dict) and b.get("node")):
             continue
         oap = ROOT / app["path"] / "package" / "node_modules" / "oap-sdk"
         if oap.exists():
-            errs.append(f"{app['id']}: package/node_modules/oap-sdk — убери (unit, donor на ГУ)")
+            errs.append(f"{app['id']}: package/node_modules/oap-sdk — убери (donor на ГУ)")
         pkg_path = ROOT / app["path"] / "package" / "package.json"
         if pkg_path.is_file():
             pkg = json.loads(pkg_path.read_text(encoding="utf-8"))

@@ -120,12 +120,12 @@
       "kind": "app",
       "title": "YouT",
       "description": "Video in the car: an unofficial client for YouTube. Your Home, Subscriptions, Watch later, History and playlists (signed in on the car), search, channels and chapters; the sound through the car's media player, the picture only while parked (a podcast view while driving). Needs the jap-ridetube-d tool.",
-      "version": "0.6.6",
+      "version": "0.6.7",
       "artifact": {
-        "name": "jap_ridetube@0.6.6.tgz",
-        "size": 3135371,
-        "sha256": "6ef3928321b648efce5323da82cd9011c2f880ea7112a5085ffdf53cd700c279",
-        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/jap_ridetube@0.6.6.tgz"
+        "name": "jap_ridetube@0.6.7.tgz",
+        "size": 3130056,
+        "sha256": "063e86f97decc948bc20f8b0e0667f6200563cf777b36d78b797a46d2fb56a41",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/jap_ridetube@0.6.7.tgz"
       },
       "requires": {
         "jap-ridetube-d": "0.5.6",
@@ -150,12 +150,12 @@
       "kind": "app",
       "title": "Krikun: сеть",
       "description": "Включение обхода, импорт Xray с USB, статус прокси для RideTube",
-      "version": "0.0.5",
+      "version": "0.0.6",
       "artifact": {
-        "name": "krikun_seti@0.0.5.tgz",
-        "size": 2266359,
-        "sha256": "405c5020475c9c69e540b42d63902ac86ceb120dab8c37df4123aae2b9643134",
-        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun_seti@0.0.5.tgz"
+        "name": "krikun_seti@0.0.6.tgz",
+        "size": 2261927,
+        "sha256": "d3b22e0fa14d09582202b38ad51084154481e3b7cdaaff44cf103ef8f8e6cdbf",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun_seti@0.0.6.tgz"
       },
       "requires": {
         "krikun-xray": "0.0.8",
@@ -180,12 +180,12 @@
       "kind": "app",
       "title": "FilmixProMax",
       "description": "Filmix на ГУ: привязка аккаунта по коду (как в Android), каталог и плеер BMW. Служба jap-filmix-d.",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "artifact": {
-        "name": "filmix_promax@0.0.4.tgz",
-        "size": 2257465,
-        "sha256": "3c011fa9002cafd59609462ddd2885a07add729100154985a682e8cbe3038f6e",
-        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/filmix_promax@0.0.4.tgz"
+        "name": "filmix_promax@0.0.5.tgz",
+        "size": 2253971,
+        "sha256": "783a50dfc196b18d88284eae12d07e568302e3dc4ff30faba37ce660a49a7d51",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/filmix_promax@0.0.5.tgz"
       },
       "requires": {
         "jap-filmix-d": "0.0.3",

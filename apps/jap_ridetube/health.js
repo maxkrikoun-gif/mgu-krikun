@@ -5,7 +5,7 @@
  * type, so it works driving or parked. Where the HMI runs the screen (no buttons drawn), the menu entry pressed
  * again runs it again. The service sends the rows as each check finishes, then done.
  *
- *   const drawHealth = require('./health')({ model, say, fit, t, message, count, C, focus, X0, TOP, H, W, OFF, OFF2, edge });
+ *   drawHealth = healthPage({ model, say, fit, t, message, count, C, focus, X0, TOP, H, W, OFF, OFF2, edge });
  *   drawHealth(cv)        // from render, mode 'health'
  */
 module.exports = function healthPage(o) {

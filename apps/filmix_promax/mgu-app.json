@@ -1,14 +1,12 @@
 {
   "schema": 1,
   "id": "filmix_promax",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "internet": true,
   "tree": "package",
   "modules": [
     "package/javascript/app.js",
-    "package/javascript/fx.js",
-    "package/javascript/kit/mgu.js",
-    "package/javascript/kit/qr.js"
+    "package/javascript/fx.js"
   ],
   "sdk": ["oap-sdk/src/core/OnlineApp.js", "oap-sdk/src/logging/logging"]
 }
