@@ -83,7 +83,7 @@
 |---|---|---|
 | `"internet": true` + `uids` + `runas` вместо `User=` | `JustAnotherPU/mgu-apps` (`jap-wireproxy`) | **Есть** (`krikun-runas` C ELF + `pass6`/`pass8`/`pass11`) |
 | Проверка, что в `prebuilt/` нет macOS `Mach-O` | Собственный опыт инцидентов на Mac | **Есть** (`audit-mgu-architecture.py`) |
-| Оффлайновый `check.sh` + `idle`-режим без конфига | `jap-wireproxy`, `jap-node22`, `jap-ridetube-d` | **Есть** (`check.sh` + mock `pass7`/`pass10`; осталось убрать `file -b` для Yocto) |
+| Оффлайновый `check.sh` + `idle`-режим без конфига | `jap-wireproxy`, `jap-node22`, `jap-ridetube-d` | **Есть** (`krikun-xray@0.0.7`: без `file(1)`, прямой `xray version` + ELF magic fallback) |
 | Согласованность `recmgr`, `crashNames`, `LimitCORE=1` | `mgu-store` (`mgu-deploy`), `ridetube` | **Есть** (`jap-ridetube-d`, `validate-component-json.py`) |
 | Подкаталог `/run/<svc>/s` с `chown <uid>` в `setup.sh` | `jap-wireproxy` (systemd 237 fix) | **Есть** с `krikun-xray@0.0.6` (`setup.sh`: `! -L`, `chown 3922:3922`) |
 
@@ -201,7 +201,7 @@ function requiresOf(source) {
 Ниже — 8 конкретных улучшений из практики `mgu-store`, `jap-wireproxy`, `ridetube`, `idrive7-apps` и `DarkMuse1` (детали путей также см. в [`docs/mgu-ecosystem-patterns.md`](mgu-ecosystem-patterns.md)), не нарушающих [`CONSTRAINTS.md`](../CONSTRAINTS.md). Базовые фиксы `/run/krikun-xray/s`, `GOGC=30 GOMEMLIMIT=96MiB` и `xray run -test` уже внесены в `krikun-xray@0.0.6`.
 
 - [ ] **1. Перевести App Kit приложения на канале `branch:main` в режим `preparePackage` (`mgu-repo.json`):** заменить `"build": "unit"` (где `oap_link.build` конфликтует с `require('oap-sdk')` внутри `kit/mgu.js` и игнорирует `app.json`) на короткий Node 8 упаковщик по образцу `DarkMuse1/idrive7-apps-ru` (`tools/prebuilt_package.js`), чтобы и `main`, и `catalog` ставились единообразно через `oap_link.preparePackage()`.
-- [ ] **2. Убрать `file -b` из `tools/krikun-xray/check.sh` (паттерн `jap-wireproxy/check.sh`):** в минимальном Yocto Linux на ГУ может не быть утилиты `file` (`libmagic`), что вызовет ложный откат пакета; проверять бинарники прямым вызовом `"$D/xray" version >/dev/null` и проверкой кода выхода `krikun-runas` (`[ "$rc" -eq 2 ]`).
+- [x] **2. Убрать `file -b` из `tools/krikun-xray/check.sh`:** с `0.0.7` — `xray version`, `krikun-runas` (rc=2) и fallback ELF magic без `file(1)` (mock `pass7` на Mac).
 - [ ] **3. Довести `start.sh` и права статуса в `krikun-xray`:** следить за `mtime` файла `config.json` (чтобы перечитывать обновлённый конфиг без ручного рестарта сервиса), проверять свободен ли `127.0.0.1:1080` до запуска `xray`, и выставлять читаемые права на `/run/krikun-xray/s/state` для UI «Krikun: сеть».
 - [ ] **4. Выделенный интернет-UID и защита сокета в `jap-filmix-d` (паттерн `jap-ridetube-d/ytd.js`):** реализовать `pickFetchUid` с записью в `state/internet-uids` + `/var/opt/mgu-uplink/uids.d/jap-filmix-d` и чтением DNS из `/run/mgu-uplink/lease.json` (чтобы прямой режим работал без root-блокировки `mgu-uplink`), а права `ctl.sock` сузить с `0666` до `<app_uid>:root 0600` (`0660 root:tm_oap_app`).
 - [ ] **5. Capability `mguNeeds: ["renderer"]` вместо жёсткого пина рендерера (`krikun_seti`, `filmix_promax`):** по образцу `mgu-store` и `iteriodev_seats` запрашивать способность `"renderer"`, чтобы 2D-приложения работали поверх уже установленного `mgu-render` или `idrive7-renderd`.
@@ -216,7 +216,7 @@ function requiresOf(source) {
 | Компонент (`id`) | Тип | Версия | Назначение |
 |---|---|---|---|
 | `jap-node22` | `tool` | `22.23.4` | Node.js 22 (`glibc 2.17`) для сервисов YouT и Filmix (сборка из `node.part.*.gz`) |
-| `krikun-xray` | `tool` | `0.0.6` | Локальный клиент Xray (VLESS/Reality) на `127.0.0.1:1080`, запуск через `krikun-runas` (`uid 3922`) |
+| `krikun-xray` | `tool` | `0.0.7` | Локальный клиент Xray (VLESS/Reality) на `127.0.0.1:1080`, запуск через `krikun-runas` (`uid 3922`) |
 | `krikun_seti` | `app` (`unit`) | `0.0.5` | Русский интерфейс «Krikun: сеть» (импорт конфига с USB, управление `updater.local.conf`, тест IP) |
 | `jap-ridetube-d` | `tool` | `0.5.6` | Сервис YouT (`ytdec` GPU декод + `MediaPlayer` BMW + `vendor/jpeg-js` + прокси Store) |
 | `jap_ridetube` | `app` (`unit`) | `0.6.6` | Клиент YouT (патчи RU по умолчанию, VIM без дисклеймера, `pause`/`resume`) |
