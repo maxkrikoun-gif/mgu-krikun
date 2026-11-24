@@ -1,8 +1,12 @@
 {
   "schema": 1,
   "id": "krikun_seti",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "tree": "package",
-  "modules": ["javascript/app.js", "javascript/netctl_client.js"],
-  "sdk": ["oap-sdk/src/core/OnlineApp.js", "oap-sdk/src/logging/logging"]
+  "modules": [
+    "package/javascript/app.js",
+    "package/javascript/netctl_client.js"
+  ],
+  "sdk": ["oap-sdk/src/core/OnlineApp.js", "oap-sdk/src/logging/logging"],
+  "internet": true
 }

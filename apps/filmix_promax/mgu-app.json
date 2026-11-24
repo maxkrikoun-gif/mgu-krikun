@@ -4,10 +4,10 @@
   "version": "0.0.2",
   "tree": "package",
   "modules": [
-    "javascript/app.js",
-    "javascript/fx.js",
-    "javascript/kit/mgu.js",
-    "javascript/kit/qr.js"
+    "package/javascript/app.js",
+    "package/javascript/fx.js",
+    "package/javascript/kit/mgu.js",
+    "package/javascript/kit/qr.js"
   ],
   "sdk": ["oap-sdk/src/core/OnlineApp.js", "oap-sdk/src/logging/logging"]
 }
