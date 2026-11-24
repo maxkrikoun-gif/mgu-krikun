@@ -25,5 +25,7 @@ scripts/*.local
 .vscode/
 .cursor/
 vendor/
-# apps/krikun_seti/package/ — в git (unit-сборка на ГУ)tools/jap-node22/build/
+# apps/*/package/ — в git (unit на ГУ)
+tools/jap-node22/build/
 native/jap-filmix-d/dist/
+tools/jap-node22/prebuilt/node

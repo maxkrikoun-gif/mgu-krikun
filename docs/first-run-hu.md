@@ -12,4 +12,4 @@ Apps **unit** (готовый `package/` в git, без `build.py` на ГУ). �
 
 База: mgu-store, idrive7-apps.
 
-Private: GitHub token в Store (нужен для LFS `prebuilt/node` и private repo).
+Private: GitHub token в Store (private repo). **Node.js 22** — бинарник частями `node.part.*`, при install `check.sh` собирает `bin/node` (Git LFS на ГУ не используется).

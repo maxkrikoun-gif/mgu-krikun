@@ -94,12 +94,21 @@ def main() -> int:
                 if dep not in base_names:
                     errs.append(f"{mf.parent.name}: {Path(f).name} requires {r}, нет в modules[]")
 
-    if (ROOT / "tools/jap-node22/prebuilt/node").is_file():
-        sz = (ROOT / "tools/jap-node22/prebuilt/node").stat().st_size
-        if sz < 50_000_000:
-            errs.append(f"jap-node22 prebuilt/node слишком маленький ({sz} bytes) — LFS?")
+    parts = sorted((ROOT / "tools/jap-node22/prebuilt").glob("node.part.*"))
+    node = ROOT / "tools/jap-node22/prebuilt/node"
+    if parts:
+        total = sum(p.stat().st_size for p in parts)
+        if total < 50_000_000:
+            errs.append(f"jap-node22: node.part.* слишком малы ({total} bytes)")
+    elif node.is_file():
+        if node.stat().st_size < 50_000_000:
+            head = node.read_bytes()[:40]
+            if b"git-lfs" in head:
+                errs.append("jap-node22: prebuilt/node — LFS pointer (нужны node.part.* в git)")
+            else:
+                errs.append(f"jap-node22 prebuilt/node слишком маленький")
     else:
-        errs.append("jap-node22 prebuilt/node missing (git lfs pull)")
+        errs.append("jap-node22: нет node.part.* и нет prebuilt/node")
 
     for app in repo.get("components", []):
         if app.get("build") != "unit":
