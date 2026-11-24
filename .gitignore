@@ -24,6 +24,5 @@ scripts/*.local
 .idea/
 .vscode/
 .cursor/
-vendor/*
-!vendor/mgu-apps/
-!vendor/mgu-apps/**tools/jap-node22/build/
+vendor/
+# apps/krikun_seti/package/ — в git (unit-сборка на ГУ)tools/jap-node22/build/

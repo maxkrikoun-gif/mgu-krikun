@@ -1,6 +1,7 @@
 # main (repo tree)
 
-| jap-node22 | `vendor/mgu-apps/jap-node22@22.23.4.tgz` (47 MiB, sha256 как upstream) + `tools/jap-node22/prebuilt/` (node — Git LFS) |
+| jap-node22 | `tools/jap-node22/prebuilt/` (LFS, = mgu-apps tgz) |
+| Krikun: сеть | `build: unit`, дерево в `apps/krikun_seti/package/` (без build.py на ГУ) |
 | krikun-xray | `tools/krikun-xray/prebuilt/` |
 | jap-ridetube-d | `native/jap-ridetube-d/prebuilt/` |
 

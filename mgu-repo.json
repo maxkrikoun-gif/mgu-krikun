@@ -1,11 +1,21 @@
 {
   "schema": 1,
-  "comment": "main: apps/* + tools. jap-node22 = vendor/mgu-apps (байт-в-байт mgu-apps). См. main/external-deps.json",
+  "comment": "main: krikun_seti = unit (без build.py на ГУ); остальные apps/*. jap-node22 в tools/.",
+  "components": [
+    {
+      "id": "krikun_seti",
+      "kind": "app",
+      "path": "apps/krikun_seti",
+      "build": "unit",
+      "icon": "icon.png",
+      "mguHmi": ["ID7"]
+    }
+  ],
   "apps": {
     "path": "apps/*",
     "manifest": "app.json",
     "icon": "icon.png",
-    "exclude": [],
+    "exclude": ["krikun_seti"],
     "build": {
       "python": "kit/tools/build.py",
       "args": ["{id}", "--language", "ru"],

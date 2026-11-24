@@ -1,0 +1,85 @@
+{
+ "id": "krikun_seti",
+ "title": "Krikun: \u0441\u0435\u0442\u044c",
+ "version": "0.0.2-ru.1",
+ "screens": [
+  {
+   "name": "MAIN",
+   "kind": "canvas",
+   "title": "\u0421\u0435\u0442\u044c",
+   "buttons": [
+    [
+     "BTN_PAGE",
+     "\u0418\u043c\u043f\u043e\u0440\u0442 USB"
+    ],
+    [
+     "BTN_SETTINGS",
+     "\u0422\u0435\u0441\u0442 \u0441\u0432\u044f\u0437\u0438"
+    ],
+    [
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ]
+   ]
+  },
+  {
+   "name": "TEST",
+   "kind": "canvas",
+   "title": "\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430",
+   "buttons": [
+    [
+     "BTN_PAGE",
+     "\u041d\u0430\u0437\u0430\u0434"
+    ],
+    [
+     "BTN_SETTINGS",
+     "\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c"
+    ],
+    [
+     "BTN_CANCEL",
+     "\u041e\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c"
+    ],
+    [
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ]
+   ]
+  },
+  {
+   "name": "IMPORT",
+   "kind": "canvas",
+   "title": "\u0418\u043c\u043f\u043e\u0440\u0442",
+   "buttons": [
+    [
+     "BTN_PAGE",
+     "\u041d\u0430\u0437\u0430\u0434"
+    ],
+    [
+     "BTN_SETTINGS",
+     "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0444\u0430\u0439\u043b"
+    ],
+    [
+     "BTN_EXIT",
+     "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+    ]
+   ]
+  }
+ ],
+ "popups": null,
+ "settings": [
+  {
+   "key": "autoProxy",
+   "label": "\u0412\u043a\u043b\u044e\u0447\u0430\u0442\u044c proxy \u0434\u043b\u044f RideTube \u043f\u0440\u0438 \u0441\u0442\u0430\u0440\u0442\u0435 \u043e\u0431\u0445\u043e\u0434\u0430",
+   "type": "bool",
+   "default": true
+  }
+ ],
+ "config": null,
+ "startWidget": null,
+ "stateIds": {
+  "MAIN": 1,
+  "TEST": 10,
+  "IMPORT": 20,
+  "SETTINGS": 29
+ }
+}
