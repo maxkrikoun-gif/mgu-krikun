@@ -1,9 +1,12 @@
-# Публикация catalog (один источник Store)
+# Публикация catalog (зеркало на Mac, не источник Store)
 
 ## Зачем
 
-В режиме **ветка main** (repo tree) в каталоге **нет** `jap-node22`, `mgu-python` и остальной базы — установка YouT падает с «no source has».  
-Релиз **`catalog`** кладёт **все** зависимости в `maxkrikoun-gif/mgu-krikun` (re-host upstream `.tgz`).
+На ГУ источник — **только ветка `main`** ([store-single-source.md](store-single-source.md)).
+
+Релиз **`catalog`** — готовые `.tgz` для выкладки / офлайн-раздачи. С `--bundle-all-deps` можно упаковать и базу mgu-store; без флага — только то, что в [deps.manifest.json](../catalog/deps.manifest.json) (без дублей чужих источников).
+
+На **main** есть `tools/jap-node22` (сборка на ГУ) — Filmix/YouT **не требуют** второго источника Releases.
 
 ## Сборка (на Mac)
 
@@ -24,7 +27,7 @@ brew install aria2
 
 1. Создать/обновить релиз с тегом **`catalog`** (не semver).
 2. Загрузить **все файлы** из `dist/catalog/` как assets (включая `catalog.json`).
-3. На ГУ: источник `maxkrikoun-gif/mgu-krikun`, канал **Releases** (не main).
+3. **На ГУ не подключать** этот релиз как Store-источник — только **main**.
 
 ## Порядок установки на ГУ
 

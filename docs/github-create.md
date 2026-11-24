@@ -28,4 +28,4 @@ git diff --cached
 # В индексе НЕ должно быть *.vpn и ключей
 ```
 
-В Store добавляется **только** `maxkrikoun-gif/mgu-krikun` (см. [store-single-source.md](store-single-source.md)). Подключать источник — после первого релиза **`catalog`** или когда repo-tree с `vendor/*` готов.
+В Store: **`maxkrikoun-gif/mgu-krikun`**, ветка **`main`** ([store-single-source.md](store-single-source.md)).

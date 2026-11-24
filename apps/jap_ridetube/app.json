@@ -7,6 +7,13 @@
   "vendor": "custom",
   "loggingId": "OAA6",
   "iconGlyph": "YT",
+  "mguHmi": ["ID7"],
+  "mguInternet": true,
+  "requires": {
+    "jap-ridetube-d": "0.5.4",
+    "mgu-render": "0.6.11",
+    "mgu-inputgate": "1.0.0"
+  },
   "signals": {
     "de.bmw.infotainment.vehicle.Vehicle2": {
       "statusCarSpeed2": "rs"

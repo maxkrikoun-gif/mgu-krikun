@@ -1,38 +1,40 @@
 # Первый запуск на ГУ (krikun + RideTube)
 
-Порядок — отдельные пакеты, одна строка proxy.
-
 ## 1. Store
 
-- Источник: **`maxkrikoun-gif/mgu-krikun`**, канал **Releases** → релиз `catalog` (см. [catalog-release.md](catalog-release.md)).  
-  Режим **ветка main** — только для разработки; для установки YouT/Filmix нужен **catalog**.
-- **mgu-uplink** — из того же catalog (интернет с телефона).
-- Сначала база: **mgu-deploy**, **mgu-python**, **jap-node22**, **mgu-render**, **idrive7-renderd**, **mgu-inputgate**.
+- Источник: **`maxkrikoun-gif/mgu-krikun`**, канал **ветка `main`** (не Releases).
+- Токен GitHub в настройках Store, если репо private.
+- База (из **других** уже стоящих источников): **mgu-deploy**, **mgu-python**, **mgu-render**, **mgu-uplink**, **idrive7-renderd**, **mgu-inputgate**.
+- Из **mgu-krikun / main**: **jap-node22** → **krikun-xray** → остальное по таблице ниже.
+
+| Порядок | Пакет |
+|---------|--------|
+| 1 | jap-node22 (первый запуск может скачать Node с nodejs.org) |
+| 2 | krikun-xray, **Krikun: сеть** |
+| 3 | jap-ridetube-d → **YouT** |
+| 4 | jap-filmix-d → **FilmixProMax** |
+
+После **mgu-inputgate** — перезапуск ГУ (если Store просит).
 
 ## 2. Xray
 
-1. Установить **krikun-xray** + **Krikun: сеть**.
-2. USB: `KRIKUN/xray.json` → импорт в приложении.
-3. **Запустить обход** (SOCKS `127.0.0.1:1080` + proxy Store).
-4. **Тест связи** — внешний IP должен быть выходом fr74, не оператора.
+1. USB: `KRIKUN/xray.json` → импорт в **Krikun: сеть**.
+2. **Запустить обход** (SOCKS `127.0.0.1:1080` + proxy Store).
+3. **Тест связи** — внешний IP = выход fr74, не оператора.
 
-## 3. YouT (YouTube)
+## 3. YouT
 
-1. Установить **jap-ridetube-d**, затем **jap_ridetube**.
-2. В **YouT**: **«Proxy Store»** — **вкл** (в mgu-krikun по умолчанию вкл, если вы не меняли).
-3. **Health check** в меню YouT.
-4. Вход: код TV на телефоне.
-5. **Видео в движении** в mgu-krikun **вкл по умолчанию**, без экрана согласия и без требования стоянки для включения.
-6. **Закрыл YouT** — воспроизведение на паузе; **открыл снова** — по умолчанию продолжается с того же ролика.
-7. **Закрыть** — в левой колонке YouT, в меню или на панели; в **Krikun: сеть** — кнопка **Закрыть** на каждом экране.
+1. **jap-ridetube-d**, затем **YouT**.
+2. **Proxy Store** — вкл (по умолчанию в нашем контуре).
+3. Health check, вход по коду TV.
 
 ## 4. Если YouTube не открывается
 
 | Симптом | Проверка |
 |---------|-----------|
-| Нет сети | uplink, тест в Krikun: сеть |
-| Health «proxy» | обход запущен? `proxy = socks5://127.0.0.1:1080` в Store |
-| IP в тесте «прямой» | Xray не запущен или proxy не включён |
+| Нет сети | mgu-uplink, тест в Krikun: сеть |
+| Health «proxy» | обход запущен? `proxy = socks5://127.0.0.1:1080` |
+| jap-node22 | установлен из **main**, не «no source has» |
 
 ## Обновление RideTube из upstream
 
@@ -40,4 +42,7 @@
 python3 scripts/fetch-ridetube.py
 python3 scripts/apply-ridetube-patches.py
 python3 scripts/verify-ridetube.py
+git push origin main
 ```
+
+На ГУ: обновить каталог источника **main** и переустановить пакеты при смене версий.

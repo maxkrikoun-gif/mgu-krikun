@@ -37,7 +37,7 @@ RideTube / Store  →  proxy socks5://127.0.0.1:1080
 | Outbound | VLESS/Reality из экспорта Amnezia (uuid, host, port, pbk, sid, flow, sni) |
 | Supervisor | Ждёт `mgu-uplink` online (по `status.json`, как у других сетевых tools) |
 | `component.json` | `"internet": true`, uid, `MemoryLimit`, без лишних capabilities |
-| Store | Releases + `catalog.json` в репо `maxkrikoun-gif/mgu-krikun` |
+| Store | ветка `main` + `mgu-repo.json` в `maxkrikoun-gif/mgu-krikun` |
 
 **Не включать в репозиторий:** uuid, ключи Reality, `vpn://`.
 
