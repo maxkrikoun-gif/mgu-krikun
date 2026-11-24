@@ -1,16 +1,17 @@
-# Один репозиторий в Store
+# Источники Store
+
+## Наш каталог
 
 ```text
-maxkrikoun-gif/mgu-krikun
+maxkrikoun-gif/mgu-krikun   → main (6 компонентов)
 ```
 
-На ГУ Store сам вешает **ветку `main`** (repo tree) — отдельно канал не выбирается.  
-Схема: [main-repo-tree.md](main-repo-tree.md).
+## Node 22 (обязательно для YouT / Filmix)
 
-**7 компонентов** — норма: 3 app + 4 tool из `mgu-repo.json`.
+```text
+JustAnotherPU/mgu-apps      → jap-node22 22.23.4
+```
 
-База (deploy, python, render, idrive7-renderd, inputgate, uplink) — из **других** уже стоящих источников.
+Артефакт: `jap-node22@22.23.4.tgz` — см. [main/external-deps.json](../main/external-deps.json). В git `mgu-krikun` **нет** node (как upstream RideTube).
 
-Private: GitHub token в Store → Settings.
-
-Catalog-релиз на GitHub — опционально для Mac (`scripts/publish-catalog-release.sh`), **не** второй источник на ГУ.
+Остальная база BMW: mgu-store, idrive7-apps — как у тебя уже стоит.

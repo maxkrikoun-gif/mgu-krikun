@@ -16,9 +16,7 @@ oap-sdk/*
 dist/*.tgz
 tools/krikun-xray/build/
 native/jap-ridetube-d/build/
-tools/jap-node22/build/
-tools/jap-node22/dist/
-# prebuilt/* — в git (кроме node через LFS)
+# prebuilt tools — в git
 scripts/*.local
 
 # OS / IDE

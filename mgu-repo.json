@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "comment": "Единый Store-источник: ветка main. apps/* + tools (jap-node22, krikun-xray, daemons). Без дубля components[].",
+  "comment": "main: apps/* + tools (xray, daemons). jap-node22 — только requires → JustAnotherPU/mgu-apps, см. main/external-deps.json",
   "apps": {
     "path": "apps/*",
     "manifest": "app.json",
@@ -25,10 +25,6 @@
     }
   },
   "tools": [
-    {
-      "id": "jap-node22",
-      "path": "tools/jap-node22"
-    },
     {
       "id": "krikun-xray",
       "path": "tools/krikun-xray"

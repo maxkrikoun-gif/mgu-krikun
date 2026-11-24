@@ -6,7 +6,7 @@
 
 Релиз **`catalog`** — готовые `.tgz` для выкладки / офлайн-раздачи. С `--bundle-all-deps` можно упаковать и базу mgu-store; без флага — только то, что в [deps.manifest.json](../catalog/deps.manifest.json) (без дублей чужих источников).
 
-На **main** есть `tools/jap-node22` (сборка на ГУ) — Filmix/YouT **не требуют** второго источника Releases.
+На **main** jap-node22 **нет** — в catalog подтягивается с `JustAnotherPU/mgu-apps` (как `tools/ridetube/release.py`).
 
 ## Сборка (на Mac)
 

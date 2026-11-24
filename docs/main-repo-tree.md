@@ -1,47 +1,32 @@
-# Ветка `main` для MGU Store (repo tree)
+# Ветка `main` для MGU Store
 
-Store по умолчанию читает **default branch** (`main`). Отдельно «Releases» на ГУ не выбирается — как у тебя.
+## Tools
 
-## Правило upstream
+| id | В `mgu-krikun` main |
+|----|---------------------|
+| krikun-xray | `tools/krikun-xray/prebuilt/` |
+| jap-ridetube-d | `native/jap-ridetube-d/prebuilt/` |
+| jap-filmix-d | исходники `.js` |
+| **jap-node22** | **нет** — как у RideTube: готовый `jap-node22@22.23.4.tgz` из **JustAnotherPU/mgu-apps** |
 
-**Tools** в repo tree **не собираются на ГУ** — в git лежат **prebuilt** (см. idrive7 `kit/renderd/prebuilt`).  
-**Apps** из `apps/*` **собираются на ГУ** (`mgu-repo.json` → `kit/tools/build.py`).
+Пин артефакта: [main/external-deps.json](../main/external-deps.json) (size/sha256 как `tools/ridetube/release.py`).
 
-## Структура `mgu-krikun`
+## jap-node22 на ГУ
 
-| Пакет | В git |
-|-------|--------|
-| Приложения | `apps/<id>/app.json`, `icon.png`, исходники |
-| **jap-node22** | `tools/jap-node22/prebuilt/node` (Git LFS), `LICENSE`, `component.json` |
-| **krikun-xray** | `tools/krikun-xray/prebuilt/xray`, `krikun-runas` |
-| **jap-ridetube-d** | `native/jap-ridetube-d/prebuilt/ytdec`, `ytdlp.pyz` |
-| **jap-filmix-d** | только `.js` (без prebuilt) |
+В Store **ещё один** источник (общий пакет сообщества, не дубль krikun):
 
-Сборка на Mac (`build.sh`) — только чтобы **обновить prebuilt**, потом commit (+ LFS для node).
-
-## Обновить prebuilt на Mac (вручную)
-
-```bash
-# krikun-xray
-cd tools/krikun-xray && ./build.sh
-cp build/xray build/krikun-runas prebuilt/
-
-# jap-node22 — из уже собранного catalog .tgz
-tar -xOf .cache/artifacts/jap-node22@22.23.4.tgz files/bin/node > tools/jap-node22/prebuilt/node
-tar -xOf .cache/artifacts/jap-node22@22.23.4.tgz files/LICENSE > tools/jap-node22/prebuilt/LICENSE
-chmod +x tools/jap-node22/prebuilt/node
-
-# ridetube-d — из .tgz или ./build.sh (MGU_STORE=…)
-tar -xOf .cache/artifacts/jap-ridetube-d@0.5.4.tgz files/ytdec -O > native/jap-ridetube-d/prebuilt/ytdec
-tar -xOf .cache/artifacts/jap-ridetube-d@0.5.4.tgz files/ytdlp.pyz -O > native/jap-ridetube-d/prebuilt/ytdlp.pyz
-chmod +x native/jap-ridetube-d/prebuilt/ytdec
+```text
+JustAnotherPU/mgu-apps
 ```
 
-`git lfs track tools/jap-node22/prebuilt/node` перед push node.
+Store прочитает **Releases/catalog** (или main — как даст UI). Установить **jap-node22** 22.23.4 **до** YouT/Filmix.
 
-## На ГУ
+Приложения в `mgu-krikun` держат `"requires": { "jap-node22": "22.23.4" }` — Store склеивает источники.
 
-Один источник: `maxkrikoun-gif/mgu-krikun` (будет **main**, 7 компонентов — норма).  
-База BMW — из mgu-store / idrive7 (как раньше).
+## Apps
 
-Порядок: **jap-node22** → **krikun-xray** → **jap-ridetube-d** / **jap-filmix-d** → приложения.
+`apps/*` → сборка на ГУ через `kit/tools/build.py --language ru`.
+
+## Catalog release (Mac)
+
+`scripts/catalog-release.py` по-прежнему **скачивает** тот же `.tgz` с mgu-apps и кладёт в наш релиз `catalog` (для офлайн/зеркала), в **main** node не коммитим.
