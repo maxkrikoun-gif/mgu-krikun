@@ -2,7 +2,7 @@
   "id": "jap_ridetube",
   "title": "YouT",
   "description": "Video in the car: an unofficial client for YouTube. Your Home, Subscriptions, Watch later, History and playlists (signed in on the car), search, channels and chapters; the sound through the car's media player, the picture only while parked (a podcast view while driving). Needs the jap-ridetube-d tool.",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "license": "GPL-3.0-or-later",
   "vendor": "custom",
   "loggingId": "OAA6",
@@ -10,7 +10,7 @@
   "mguHmi": ["ID7"],
   "mguInternet": true,
   "requires": {
-    "jap-ridetube-d": "0.5.5",
+    "jap-ridetube-d": "0.5.6",
     "mgu-render": "0.6.11",
     "mgu-inputgate": "1.0.0"
   },

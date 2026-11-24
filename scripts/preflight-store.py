@@ -25,6 +25,7 @@ def main() -> int:
         "validate-mgu-app.py",
         "validate-component-json.py",
         "simulate-hu-tool.py",
+        "simulate-oap-pack.py",
         "audit-store-5pass.py",
     ):
         p = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], capture_output=True, text=True)
@@ -122,6 +123,19 @@ def main() -> int:
         oap = ROOT / app["path"] / "package" / "node_modules" / "oap-sdk"
         if oap.exists():
             errs.append(f"{app['id']}: package/node_modules/oap-sdk — убери (unit, donor на ГУ)")
+        pkg_path = ROOT / app["path"] / "package" / "package.json"
+        if pkg_path.is_file():
+            pkg = json.loads(pkg_path.read_text(encoding="utf-8"))
+            fl = pkg.get("files")
+            if not isinstance(fl, list) or not fl:
+                errs.append(
+                    f"{app['id']}: package/package.json без files[] — oap_pack на ГУ: forEach of undefined"
+                )
+            else:
+                base = pkg_path.parent
+                for ent in fl:
+                    if not (base / ent).exists():
+                        errs.append(f"{app['id']}: files[] → {ent!r} отсутствует в package/")
 
     if warns:
         print("WARN:\n" + "\n".join(f"  ⚠ {w}" for w in warns))

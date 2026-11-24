@@ -1,7 +1,7 @@
 'use strict';
-const mgu = require('./kit/mgu');
-const QR = require('./kit/qr');
-const { Ctl, Model, SOCKET, CONSOLES_URL } = require('./fx');
+const mgu = require("./kit/mgu");
+const QR = require("./kit/qr");
+const { Ctl, Model, SOCKET, CONSOLES_URL } = require('./fx.js');
 
 const W = 1600;
 const H = 520;

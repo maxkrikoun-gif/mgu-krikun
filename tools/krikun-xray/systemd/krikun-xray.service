@@ -4,11 +4,9 @@ After=network.target mgu-uplink.service
 RequiresMountsFor=/var/opt
 
 [Service]
-# root: USB/import (setup.sh); основной процесс — uid 3922 (internet), без runas-бинарника
-User=3922
-Group=3922
-ExecStartPre=+/bin/sh /var/opt/krikun-xray/current/setup.sh
-ExecStart=/bin/sh /var/opt/krikun-xray/current/start.sh
+ExecStartPre=/bin/sh /var/opt/krikun-xray/current/setup.sh
+# uid 3922 нет в passwd — только krikun-runas (как jap-wireproxy / jap-runas 3921).
+ExecStart=/var/opt/krikun-xray/current/krikun-runas 3922 /bin/sh /var/opt/krikun-xray/current/start.sh
 RuntimeDirectory=krikun-xray
 RuntimeDirectoryMode=0755
 Restart=always
@@ -16,7 +14,7 @@ RestartSec=15
 TimeoutStopSec=10
 MemoryLimit=192M
 CPUQuota=200%
-# User=3922; NoNewPrivileges не включать.
+NoNewPrivileges=yes
 PrivateTmp=yes
 ProtectSystem=full
 ProtectHome=yes

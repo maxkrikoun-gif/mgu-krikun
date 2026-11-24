@@ -25,6 +25,8 @@ scripts/*.local
 .vscode/
 .cursor/
 vendor/
+!native/jap-ridetube-d/vendor/
+!native/jap-ridetube-d/vendor/**
 # apps/*/package/ — в git (unit на ГУ)
 tools/jap-node22/build/
 tools/jap-node22/bin/

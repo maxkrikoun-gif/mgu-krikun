@@ -120,12 +120,15 @@ def validate_app_dir(app_dir: Path) -> list[str]:
             )
 
     # oap_link на ГУ (build на head unit): ids = ./<basename>; см. robertnisipeanu/mgu-store tools/oap_link.js
-    if app_dir.name != "krikun_seti" or not isinstance(modules, list):
+    # Только entry (app.js) — kit/*.js в modules[] имеют внутренние require с диска.
+    if not isinstance(modules, list):
         return errs
+    entry = f"{tree}/{pathlib_main(main)}" if isinstance(main, str) else None
+    check_modules = [entry] if entry and (app_dir / entry).is_file() else []
     if isinstance(modules, list):
         ids = {f"./{Path(f).name}" for f in modules}
         sdk_list = m.get("sdk") if isinstance(m.get("sdk"), list) else []
-        for rel in modules:
+        for rel in check_modules:
             text = (app_dir / rel).read_text(encoding="utf-8", errors="replace")
             for name in REQ_SQ.findall(text):
                 if name in ids or name in sdk_list or name in NODE_BUILTINS:

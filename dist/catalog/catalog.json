@@ -1,0 +1,237 @@
+{
+  "schema": 2,
+  "comment": "maxkrikoun-gif/mgu-krikun: наши пакеты + jap-node22/YouT/Filmix/xray; mgu-store и idrive7-renderd — из других источников Store",
+  "components": [
+    {
+      "id": "jap-node22",
+      "kind": "tool",
+      "title": "Node.js 22",
+      "description": "Node.js 22 LTS for the background services of Moonride and RideTube (BMW's apps keep the system Node 8)",
+      "author": "JustAnotherPU",
+      "version": "22.23.4",
+      "artifact": {
+        "name": "jap-node22@22.23.4.tgz",
+        "size": 49203293,
+        "sha256": "c62a8e2a3803b858b4d1020cb19746c8bd9ae8b753145f80c5adf7d781692743",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/jap-node22@22.23.4.tgz"
+      },
+      "requires": {
+        "mgu-deploy": "0.7.0"
+      },
+      "uninstallable": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "optional": true,
+      "texts": {
+        "ru": {
+          "title": "Node.js 22",
+          "description": "Node 22 для YouT и Filmix (миниатюры, API)."
+        }
+      }
+    },
+    {
+      "id": "krikun-xray",
+      "kind": "tool",
+      "title": "Krikun Xray",
+      "description": "Xray SOCKS5 на 127.0.0.1:1080 для обхода блокировок (VLESS/Reality). Конфиг только на ГУ, импорт с USB или из приложения «Krikun: сеть».",
+      "version": "0.0.5",
+      "artifact": {
+        "name": "krikun-xray@0.0.5.tgz",
+        "size": 14352856,
+        "sha256": "d0e7b9d667fa8052d6bdc9b20bed0ab5df6f7e46402582571735f4090974c8dc",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun-xray@0.0.5.tgz"
+      },
+      "requires": {
+        "mgu-deploy": "0.7.0",
+        "mgu-updater": "0.8.40"
+      },
+      "uninstallable": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "Krikun Xray",
+          "description": "Локальный прокси 127.0.0.1:1080 через Xray до вашего сервера (fr74)."
+        }
+      }
+    },
+    {
+      "id": "jap-filmix-d",
+      "kind": "tool",
+      "title": "FilmixProMax (сервис)",
+      "description": "Демон Filmix: device-code auth (API v2), далее каталог и стримы для приложения filmix_promax.",
+      "version": "0.0.3",
+      "artifact": {
+        "name": "jap-filmix-d@0.0.3.tgz",
+        "size": 9851,
+        "sha256": "595c844021e2a589e0c2a150c64ee3631f9e37d28903333ae4e4ee7b81218b61",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/jap-filmix-d@0.0.3.tgz"
+      },
+      "requires": {
+        "mgu-deploy": "0.7.0",
+        "jap-node22": "22.23.4"
+      },
+      "uninstallable": true,
+      "internet": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "FilmixProMax (сервис)",
+          "description": "Авторизация Filmix и API. Сокет /run/jap-filmix-d/ctl.sock"
+        }
+      }
+    },
+    {
+      "id": "jap-ridetube-d",
+      "kind": "tool",
+      "title": "RideTube service",
+      "description": "The car side of RideTube, an unofficial client for YouTube: yt-dlp (from its official release, run in mgu-python) fetches as the daemon's own internet uid; search, feeds and thumbnails on the car (jap-node22); audio through the BMW MediaPlayer, video decoded by ytdec into the mgu-render video layer; TV device sign-in; controlled by the RideTube app over /run/jap-ridetube-d/ctl.sock",
+      "version": "0.5.6",
+      "artifact": {
+        "name": "jap-ridetube-d@0.5.6.tgz",
+        "size": 8888579,
+        "sha256": "267142d6333c93ccc7e3ca32fdbeb9fa064ae390962647b850fad6cbcfec11cb",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/jap-ridetube-d@0.5.6.tgz"
+      },
+      "requires": {
+        "mgu-deploy": "0.7.0",
+        "mgu-python": "1.0.2",
+        "jap-node22": "22.23.4",
+        "mgu-render": "0.6.11"
+      },
+      "uninstallable": true,
+      "internet": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "YouT (сервис)",
+          "description": "Демон YouTube: сеть, декод, MediaPlayer. Proxy — из настроек Store."
+        }
+      }
+    },
+    {
+      "id": "jap_ridetube",
+      "kind": "app",
+      "title": "YouT",
+      "description": "Video in the car: an unofficial client for YouTube. Your Home, Subscriptions, Watch later, History and playlists (signed in on the car), search, channels and chapters; the sound through the car's media player, the picture only while parked (a podcast view while driving). Needs the jap-ridetube-d tool.",
+      "version": "0.6.6",
+      "artifact": {
+        "name": "jap_ridetube@0.6.6.tgz",
+        "size": 3135371,
+        "sha256": "6ef3928321b648efce5323da82cd9011c2f880ea7112a5085ffdf53cd700c279",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/jap_ridetube@0.6.6.tgz"
+      },
+      "requires": {
+        "jap-ridetube-d": "0.5.6",
+        "mgu-render": "0.6.11",
+        "mgu-inputgate": "1.0.0"
+      },
+      "uninstallable": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "YouT",
+          "description": "YouTube в машине: подписки, поиск, история. Звук — медиаплеер BMW. Видео в движении включено по умолчанию (настройка). Служба jap-ridetube-d. Обход: proxy Store (krikun-xray)."
+        }
+      },
+      "icon": "jap_ridetube.png",
+      "iconSha256": "d7a4a5153c04b97c46ce532b089bea72073e5b057450b2ec2183bad30435556a"
+    },
+    {
+      "id": "krikun_seti",
+      "kind": "app",
+      "title": "Krikun: сеть",
+      "description": "Включение обхода, импорт Xray с USB, статус прокси для RideTube",
+      "version": "0.0.5",
+      "artifact": {
+        "name": "krikun_seti@0.0.5.tgz",
+        "size": 2266359,
+        "sha256": "405c5020475c9c69e540b42d63902ac86ceb120dab8c37df4123aae2b9643134",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/krikun_seti@0.0.5.tgz"
+      },
+      "requires": {
+        "krikun-xray": "0.0.5",
+        "mgu-inputgate": "1.0.0",
+        "idrive7-renderd": "2.1.10"
+      },
+      "uninstallable": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "Krikun: сеть",
+          "description": "Обход блокировок через Xray (fr74). Импорт с USB, без ввода ключа на экране."
+        }
+      },
+      "icon": "krikun_seti.png",
+      "iconSha256": "ba4db8f4d66790743a0bef4afbe20d495ff5f3cc74c32d8275500c6646860b6d"
+    },
+    {
+      "id": "filmix_promax",
+      "kind": "app",
+      "title": "FilmixProMax",
+      "description": "Filmix на ГУ: привязка аккаунта по коду (как в Android), каталог и плеер BMW. Служба jap-filmix-d.",
+      "version": "0.0.4",
+      "artifact": {
+        "name": "filmix_promax@0.0.4.tgz",
+        "size": 2257465,
+        "sha256": "3c011fa9002cafd59609462ddd2885a07add729100154985a682e8cbe3038f6e",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/filmix_promax@0.0.4.tgz"
+      },
+      "requires": {
+        "jap-filmix-d": "0.0.3",
+        "idrive7-renderd": "2.1.10",
+        "mgu-inputgate": "1.0.0",
+        "jap-node22": "22.23.4"
+      },
+      "uninstallable": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "FilmixProMax",
+          "description": "Filmix в машине: код на filmix.gg/consoles. API идёт напрямую или через SOCKS, если запущен обход (krikun-xray)."
+        }
+      },
+      "icon": "filmix_promax.png",
+      "iconSha256": "8705f5b4226bc9cc075ab58071501b78b4fb57ce58eeb7e2023f8c09732b279d"
+    },
+    {
+      "id": "mgu-render-id7-touch",
+      "kind": "tool",
+      "title": "Full-width touch",
+      "description": "Lets full-screen apps (RideTube, Moonride) use the screen's left edge: both renderers get the whole screen as their touch area, so a tap on the strip where the back arrow usually is reaches the app instead of closing it. Leave such an app with the BACK or MENU button. Other apps keep the back arrow. Removing it takes effect at the next start of the head unit.",
+      "version": "1.4.0",
+      "artifact": {
+        "name": "mgu-render-id7-touch@1.4.0.tgz",
+        "size": 3499,
+        "sha256": "74606000de4c70b4e81c72f39bfc7ff5d96b89cc22706e02d8fcb2bcd612df84",
+        "url": "https://github.com/maxkrikoun-gif/mgu-krikun/releases/download/catalog/mgu-render-id7-touch@1.4.0.tgz"
+      },
+      "requires": {
+        "mgu-deploy": "0.7.0"
+      },
+      "optional": true,
+      "uninstallable": true,
+      "mguHmi": [
+        "ID7"
+      ],
+      "texts": {
+        "ru": {
+          "title": "Касание на весь экран",
+          "description": "Для YouT: левая кромка экрана в приложении (опционально)."
+        }
+      }
+    }
+  ]
+}

@@ -362,10 +362,35 @@ XRAY_BIN = ROOT / "tools/krikun-xray/build/xray"
 
 
 def app_dist_tgz(app_id: str) -> Path | None:
-    """dist/<id>@<ver>.tgz; для --language ru версия может быть 0.0.2-ru.1."""
+    """dist/<id>@<ver>.tgz — только точное совпадение с app.json version."""
+    app = load_app_json(ROOT / "apps" / app_id / "app.json")
+    exact = ROOT / "dist" / f"{app_id}@{app['version']}.tgz"
+    return exact if exact.is_file() else None
+
+
+def is_unit_app(app_id: str) -> bool:
+    repo = json.loads((ROOT / "mgu-repo.json").read_text(encoding="utf-8"))
+    for c in repo.get("components", []):
+        if c.get("id") == app_id:
+            return c.get("build") == "unit"
+    return False
+
+
+def pack_unit_app(app_id: str) -> Path:
+    """apps/<id>/package/ → dist/<id>@<version>.tgz (формат npm, корень package/)."""
+    app = load_app_json(ROOT / "apps" / app_id / "app.json")
+    ver = str(app["version"])
+    pkg_parent = ROOT / "apps" / app_id
+    if not (pkg_parent / "package" / "package.json").is_file():
+        sys.exit(f"unit {app_id}: нет package/package.json")
     dist = ROOT / "dist"
-    cands = sorted(dist.glob(f"{app_id}@*.tgz"), key=lambda p: p.stat().st_mtime, reverse=True)
-    return cands[0] if cands else None
+    dist.mkdir(parents=True, exist_ok=True)
+    dest = dist / f"{app_id}@{ver}.tgz"
+    for old in dist.glob(f"{app_id}@*.tgz"):
+        if old != dest:
+            old.unlink(missing_ok=True)
+    subprocess.check_call(["tar", "-czf", str(dest), "-C", str(pkg_parent), "package"])
+    return dest
 
 
 def version_from_dist_tgz(path: Path) -> str:
@@ -442,6 +467,10 @@ def main() -> None:
 
     log("=== 0/5: параллельная загрузка .tgz (кэш .cache/artifacts) ===")
     art_specs, upstream_comps, ridetube_comps = collect_remote_artifacts(manifest)
+    # Ridetube — из репозитория (не старый catalog JustAnotherPU).
+    art_specs = [
+        s for s in art_specs if not s["name"].startswith(("jap-ridetube-d@", "jap_ridetube@"))
+    ]
     id7 = manifest["idrive7_tools"]
     id7_ref = id7["ref"]
     id7_tool_specs = [t for t in id7["tools"] if t["id"] not in exc]
@@ -553,55 +582,78 @@ def main() -> None:
     components.append(fx_tool)
     by_id["jap-filmix-d"] = fx_tool
 
-    log("=== 4/5: YouT (jap-ridetube-d + jap_ridetube, re-host) ===")
-    for cid in ("jap-ridetube-d", "jap_ridetube"):
-        comp = ridetube_comps[cid]
-        name = comp["artifact"]["name"]
-        copy_cached_to_out(name, OUT)
-        entry = dict(comp)
-        entry["artifact"] = artifact_entry(OUT / name, base)
-        if cid == "jap_ridetube":
-            entry["texts"] = {
-                "ru": {
-                    "title": "YouT",
-                    "description": "YouTube в машине. RU по умолчанию. Proxy Store (krikun-xray).",
-                }
-            }
-            attach_store_icon(entry, "jap_ridetube.png", ROOT / "apps/jap_ridetube/icon.png", OUT)
-        elif cid == "jap-ridetube-d":
-            entry["texts"] = {
-                "ru": {
-                    "title": "YouT (сервис)",
-                    "description": "Демон YouTube на ГУ.",
-                }
-            }
-        components.append(entry)
-        by_id[cid] = entry
+    log("=== 4/5: YouT (jap-ridetube-d + jap_ridetube, из репо) ===")
+    jd_tgz = pack_tool(ROOT / "native/jap-ridetube-d")
+    shutil.copy(jd_tgz, OUT / jd_tgz.name)
+    jd_cj = load_component_json(ROOT / "native/jap-ridetube-d/component.json")
+    jd_entry = {
+        "id": "jap-ridetube-d",
+        "kind": "tool",
+        "title": jd_cj["title"],
+        "description": jd_cj["description"],
+        "version": jd_cj["version"],
+        "artifact": artifact_entry(OUT / jd_tgz.name, base),
+        "requires": jd_cj.get("requires", {}),
+        "uninstallable": True,
+        "internet": True,
+        "mguHmi": jd_cj.get("mguHmi", ["ID7"]),
+        "texts": jd_cj.get("texts")
+        or {"ru": {"title": "YouT (сервис)", "description": "Демон YouTube на ГУ."}},
+    }
+    components.append(jd_entry)
+    by_id["jap-ridetube-d"] = jd_entry
 
-    log("=== 5/5: Krikun: сеть, FilmixProMax (build.py) ===")
-    repo_comps = {c["id"]: c for c in json.loads((ROOT / "mgu-repo.json").read_text())["components"]}
+    jr_app = load_app_json(ROOT / "apps/jap_ridetube/app.json")
+    jr_raw = pack_unit_app("jap_ridetube")
+    jr_pack = OUT / jr_raw.name
+    strip_oap_sdk(jr_raw, jr_pack)
+    jr_entry = {
+        "id": "jap_ridetube",
+        "kind": "app",
+        "title": jr_app.get("title", "jap_ridetube"),
+        "description": jr_app.get("description", ""),
+        "version": jr_app["version"],
+        "artifact": artifact_entry(jr_pack, base),
+        "requires": jr_app.get("requires", {}),
+        "uninstallable": True,
+        "mguHmi": jr_app.get("mguHmi", ["ID7"]),
+        "texts": jr_app.get("texts")
+        or {
+            "ru": {
+                "title": "YouT",
+                "description": "YouTube в машине. RU по умолчанию. Proxy Store (krikun-xray).",
+            }
+        },
+    }
+    attach_store_icon(jr_entry, "jap_ridetube.png", ROOT / "apps/jap_ridetube/icon.png", OUT)
+    components.append(jr_entry)
+    by_id["jap_ridetube"] = jr_entry
+
+    log("=== 5/5: Krikun: сеть, FilmixProMax (unit package/) ===")
     app_ids = ("krikun_seti", "filmix_promax")
-    need_build = [
-        aid
-        for aid in app_ids
-        if not (args.fast and app_dist_tgz(aid) is not None)
-    ]
-    if need_build:
-        subprocess.check_call(
-            [sys.executable, str(ROOT / "kit/tools/build.py"), "--language", "ru", *need_build],
-            cwd=ROOT,
-        )
-    elif app_ids:
-        log("  apps: dist/*.tgz из кэша (--fast)")
-    for app_id in ("krikun_seti", "filmix_promax"):
+    for app_id in app_ids:
         app = load_app_json(ROOT / "apps" / app_id / "app.json")
+        if is_unit_app(app_id):
+            cached = app_dist_tgz(app_id)
+            need_pack = not (
+                args.fast
+                and cached is not None
+                and version_from_dist_tgz(cached) == str(app["version"])
+            )
+            if need_pack:
+                pack_unit_app(app_id)
+        else:
+            if not (args.fast and app_dist_tgz(app_id) is not None):
+                subprocess.check_call(
+                    [sys.executable, str(ROOT / "kit/tools/build.py"), "--language", "ru", app_id],
+                    cwd=ROOT,
+                )
         raw_pkg = app_dist_tgz(app_id)
         if raw_pkg is None:
-            sys.exit(f"build.py не создал dist/{app_id}@*.tgz")
+            sys.exit(f"нет dist/{app_id}@*.tgz")
         ver = version_from_dist_tgz(raw_pkg)
         pack_path = OUT / raw_pkg.name
         strip_oap_sdk(raw_pkg, pack_path)
-        req_entry = repo_comps[app_id]
         entry = {
             "id": app_id,
             "kind": "app",
@@ -609,10 +661,10 @@ def main() -> None:
             "description": app.get("description", ""),
             "version": ver,
             "artifact": artifact_entry(pack_path, base),
-            "requires": req_entry["requires"],
+            "requires": app.get("requires", {}),
             "uninstallable": True,
             "mguHmi": app.get("mguHmi", ["ID7"]),
-            "texts": app.get("texts") or req_entry.get("texts"),
+            "texts": app.get("texts"),
         }
         attach_store_icon(entry, f"{app_id}.png", ROOT / "apps" / app_id / "icon.png", OUT)
         components.append(entry)

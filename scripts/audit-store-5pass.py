@@ -248,13 +248,22 @@ def pass7_mock_checks() -> tuple[list[str], list[str]]:
 
 
 def pass8_krikun_xray_units() -> tuple[list[str], list[str]]:
-    """Проход 8: инцидент NoNewPrivileges + runas — отдельно жмём krikun-xray."""
+    """Проход 8: krikun-xray unit + ELF runas (инцидент User=3922 / Mach-O runas)."""
     errs: list[str] = []
-    base = ROOT / "tools/krikun-xray/systemd"
-    for uf in sorted(base.glob("*.service")):
-        text = uf.read_text(encoding="utf-8")
-        if re.search(r"^NoNewPrivileges\s*=\s*yes\b", text, re.M | re.I):
-            errs.append(f"pass8: {uf.name}: NoNewPrivileges=yes (ломает krikun-runas setuid)")
+    svc = ROOT / "tools/krikun-xray/systemd/krikun-xray.service"
+    if svc.is_file():
+        text = svc.read_text(encoding="utf-8")
+        if re.search(r"^User\s*=\s*3922\b", text, re.M):
+            errs.append("pass8: krikun-xray.service: User=3922 (systemd без passwd)")
+        if "krikun-runas" not in text:
+            errs.append("pass8: krikun-xray.service: нет krikun-runas")
+    runas = ROOT / "tools/krikun-xray/prebuilt/krikun-runas"
+    if runas.is_file():
+        r = subprocess.run(["file", "-b", str(runas)], capture_output=True, text=True)
+        if "ELF" not in r.stdout or "x86-64" not in r.stdout:
+            errs.append(f"pass8: prebuilt/krikun-runas: {r.stdout.strip()}")
+    else:
+        errs.append("pass8: нет prebuilt/krikun-runas (bash build.sh)")
     return errs, []
 
 

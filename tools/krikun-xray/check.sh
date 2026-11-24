@@ -6,6 +6,10 @@ D="${MGU_TOOL_CURRENT:-/var/opt/krikun-xray/current}"
 CFG="${MGU_TOOL_CONF:-/var/opt/krikun-xray/conf/config.json}"
 [ -x "$D/xray" ] || { echo "krikun-xray: нет $D/xray"; exit 1; }
 [ -x "$D/krikun-runas" ] || { echo "krikun-xray: нет $D/krikun-runas"; exit 1; }
+case "$(file -b "$D/krikun-runas" 2>/dev/null || true)" in
+*ELF*x86-64*) ;;
+*) echo "krikun-xray: krikun-runas не ELF linux-amd64"; exit 1 ;;
+esac
 case "$(file -b "$D/xray" 2>/dev/null || true)" in
 *ELF*x86-64*) ;;
 *) echo "krikun-xray: xray не ELF linux-amd64"; exit 1 ;;

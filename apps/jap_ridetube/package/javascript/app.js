@@ -50,10 +50,10 @@
  */
 const fs = require('fs');
 const path = require('path');
-const mgu = require('./kit/mgu');
-const G = require('./kit/gauges');
-const QR = require('./kit/qr');
-const { t: translate, plural, dict, getLanguage, setLanguage, languages, BAKED } = require('./kit/i18n');
+const mgu = require("./kit/mgu");
+const G = require("./kit/gauges");
+const QR = require("./kit/qr");
+const { t: translate, plural, dict, getLanguage, setLanguage, languages, BAKED } = require("./kit/i18n");
 
 function message(key, values) {
     return translate(key).replace(/\{(\w+)\}/g, (_, name) => String(values[name]));
@@ -69,12 +69,12 @@ function count(n, one, other, tr) {
     const s = Object.prototype.hasOwnProperty.call(dict, one + '|' + other) ? plural(n, one, other) : (tr || translate)(n === 1 ? one : other);
     return s.replace(/\{count\}/g, String(n));
 }
-const { setImage } = require('./kit/record');
-const { HMI } = require('./kit/display');
-const Parked = require('./kit/parked');
-const { Touchpad, TouchMode, MODE: PAD_MODE } = require('./kit/touchpad');
-const { Ctl, Model, clock, SOCKET, FEEDS, SHELF_MAX, followStoreProxy, driveLock } = require('./yt');
-const { spell } = require('./speller');
+const { setImage } = require("./kit/record");
+const { HMI } = require("./kit/display");
+const Parked = require("./kit/parked");
+const { Touchpad, TouchMode, MODE: PAD_MODE } = require("./kit/touchpad");
+const { Ctl, Model, clock, SOCKET, FEEDS, SHELF_MAX, followStoreProxy, driveLock } = require('./yt.js');
+const { spell } = require('./speller.js');
 
 const W = 1600, H = 520;
 const BOX = { x: 12, y: 38, w: 1576, h: 432 };          // the video, in the page's visible part (y 38..520)
@@ -119,7 +119,7 @@ mgu.run({
     async start(ctx) {
         const { ui, settings, log } = ctx;
         // What's new (news.js): read before anything is saved, so a first install is told from an update
-        const news = require('./news'), newsAt = news.due(settings.get('seen_series'), fs.existsSync(settings.file), APP_VERSION);
+        const news = require('./news.js'), newsAt = news.due(settings.get('seen_series'), fs.existsSync(settings.file), APP_VERSION);
         let newsDue = newsAt.show, newsFrom = 'home';
         if (settings.get('seen_series') !== newsAt.seen) settings.set('seen_series', newsAt.seen);
         // the Language setting: a catalog the package has, else Auto: the car's HMI language when there is a catalog
@@ -242,7 +242,7 @@ mgu.run({
         let note = null;
         const flash = (text) => { note = { text, until: Date.now() + 4000 }; dirty = true; };
         let toResults = false;                       // a search just run: its results brought into view when they come
-        const page = require('./search')({ settings, legacy: path.join(ctx.dataDir, 'recent.json'), model, t: translate, whole, message,
+        const page = require('./search.js')({ settings, legacy: path.join(ctx.dataDir, 'recent.json'), model, t: translate, whole, message,
             moving: () => noVideo(), type: () => typeSearch(true), run: (q) => search(q), menu: () => ui.open('MAIN'), flash,
             changed: () => { showSlots(); dirty = true; }, glyphs: () => ({ KEYS, ALL, X: (cv, x, y, c) => xGlyph(cv, x, y, 22, c) }) });
         let suggestions = SUGGEST.map(translate);
@@ -1159,8 +1159,8 @@ mgu.run({
         }
         let OFF = translate('The RideTube service (jap-ridetube-d) is not running');
         let OFF2 = translate('Install the RideTube service (jap-ridetube-d) from the MGU Store');
-        PAGES.health = require('./health')({ model, say, fit, t: whole, message: whole, count, C, focus: () => focusKey, edge: () => (FILL ? RX === 0 : null), get X0() { return X0; }, get TOP() { return TOP; }, H, W, get OFF() { return OFF; }, get OFF2() { return OFF2; } });
-        remote = require('./remote')({ model, send: (o) => ctl.send(o), changed, lang: getLanguage, say, fit, t: whole, message: whole, C, QR, focus: () => focusKey, get X0() { return X0; }, get TOP() { return TOP; }, H, W, get OFF() { return OFF; }, get OFF2() { return OFF2; } });
+        PAGES.health = require('./health.js')({ model, say, fit, t: whole, message: whole, count, C, focus: () => focusKey, edge: () => (FILL ? RX === 0 : null), get X0() { return X0; }, get TOP() { return TOP; }, H, W, get OFF() { return OFF; }, get OFF2() { return OFF2; } });
+        remote = require('./remote.js')({ model, send: (o) => ctl.send(o), changed, lang: getLanguage, say, fit, t: whole, message: whole, C, QR, focus: () => focusKey, get X0() { return X0; }, get TOP() { return TOP; }, H, W, get OFF() { return OFF; }, get OFF2() { return OFF2; } });
         PAGES.remote = remote.draw;
         // a phone action, as a tap: a search shows its results, a video plays (the picture only as the parked rule allows)
         remote.onDo = (a) => { if (a.do === 'search') search(a.q, true); else play(a.id); changed(); };

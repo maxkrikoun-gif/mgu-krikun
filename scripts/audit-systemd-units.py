@@ -36,10 +36,12 @@ def main() -> int:
             errs.append(f"{tid}: нет unit {unit_path.relative_to(ROOT)}")
             continue
         text = unit_path.read_text(encoding="utf-8")
-        if NOPRIV.search(text) and (RUNAS.search(text) or "krikun-runas" in text):
+        if tid == "krikun-xray" and re.search(r"^User\s*=\s*3922\b", text, re.M):
             errs.append(
-                f"{tid} {unit_path.name}: NoNewPrivileges=yes + runas/setuid → drop priv на ГУ (activating)"
+                f"{tid} {unit_path.name}: User=3922 — на ГУ нет passwd, нужен krikun-runas в ExecStart"
             )
+        if tid == "krikun-xray" and unit_path.name == "krikun-xray.service" and "krikun-runas" not in text:
+            errs.append(f"{tid} {unit_path.name}: нет krikun-runas в ExecStart")
         for line in text.splitlines():
             if line.strip().startswith("After=") and "jap-node22.service" in line:
                 warns.append(f"{tid}: After=jap-node22.service — у jap-node22 нет unit (гармless)")

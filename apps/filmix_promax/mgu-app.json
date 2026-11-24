@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "filmix_promax",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "internet": true,
   "tree": "package",
   "modules": [

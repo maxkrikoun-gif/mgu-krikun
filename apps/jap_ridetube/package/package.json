@@ -1,6 +1,6 @@
 {
   "name": "jap_ridetube",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "Видео в машине: неофициальный клиент YouTube. Ваши главная, подписки, «Смотреть позже», история и плейлисты (после входа в машине), поиск, каналы и главы; звук через медиаплеер машины, картинка только на стоянке (в движении — режим подкаста). Нужна служба jap-ridetube-d.",
   "main": "javascript/app.js",
   "private": false,
@@ -20,5 +20,15 @@
     "userLoginRequired": false,
     "backgroundPriority": 200,
     "someipManifest": "manifest.json"
-  }
+  },
+  "files": [
+    "config",
+    "javascript",
+    "manifest.json",
+    "npm-shrinkwrap.json",
+    "permissions.json",
+    "rhmiData",
+    "LICENSE.kit"
+  ],
+  "mguLocalOnly": true
 }

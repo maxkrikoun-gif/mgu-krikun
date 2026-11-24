@@ -1,6 +1,6 @@
 {
   "name": "filmix_promax",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Filmix на ГУ: привязка аккаунта по коду (как в Android), каталог и плеер BMW. Служба jap-filmix-d.",
   "main": "javascript/app.js",
   "private": false,
@@ -20,5 +20,15 @@
     "userLoginRequired": false,
     "backgroundPriority": 200,
     "someipManifest": "manifest.json"
-  }
+  },
+  "files": [
+    "config",
+    "javascript",
+    "manifest.json",
+    "npm-shrinkwrap.json",
+    "permissions.json",
+    "rhmiData",
+    "LICENSE.kit"
+  ],
+  "mguLocalOnly": true
 }
