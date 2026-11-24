@@ -24,4 +24,6 @@ scripts/*.local
 .idea/
 .vscode/
 .cursor/
-vendor/
+vendor/*
+!vendor/mgu-apps/
+!vendor/mgu-apps/**tools/jap-node22/build/

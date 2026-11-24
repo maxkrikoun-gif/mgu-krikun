@@ -1,17 +1,13 @@
-# Источники Store
-
-## Наш каталог
+# Store — один репозиторий
 
 ```text
-maxkrikoun-gif/mgu-krikun   → main (6 компонентов)
+maxkrikoun-gif/mgu-krikun   (main)
 ```
 
-## Node 22 (обязательно для YouT / Filmix)
+**jap-node22** встроен: `vendor/mgu-apps/jap-node22@22.23.4.tgz` + `tools/jap-node22` (тот же `.tgz`, что у JustAnotherPU/mgu-apps). **JustAnotherPU/mgu-apps в Store добавлять не нужно.**
 
-```text
-JustAnotherPU/mgu-apps      → jap-node22 22.23.4
-```
+7 компонентов на main — норма.
 
-Артефакт: `jap-node22@22.23.4.tgz` — см. [main/external-deps.json](../main/external-deps.json). В git `mgu-krikun` **нет** node (как upstream RideTube).
+База BMW: mgu-store, idrive7-apps — как уже стоят.
 
-Остальная база BMW: mgu-store, idrive7-apps — как у тебя уже стоит.
+Схема: [main-repo-tree.md](main-repo-tree.md).
