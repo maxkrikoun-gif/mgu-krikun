@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-5 проходов по каталогу mgu-krikun перед push (ответы на разные вопросы «что сломается на ГУ»).
+Обязательный preflight перед push (расширяется по каждому инциденту на ГУ).
+Базовые 5 проходов + systemd + mock check.sh.
 """
 from __future__ import annotations
 
@@ -206,6 +207,95 @@ def pass5_runtime_smoke() -> tuple[list[str], list[str]]:
     return errs, warns
 
 
+def pass6_systemd() -> tuple[list[str], list[str]]:
+    errs: list[str] = []
+    p = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "audit-systemd-units.py")],
+        capture_output=True,
+        text=True,
+    )
+    print(p.stdout, end="")
+    if p.returncode:
+        errs.append("pass6: audit-systemd-units.py failed")
+    return errs, []
+
+
+def pass7_mock_checks() -> tuple[list[str], list[str]]:
+    errs: list[str] = []
+    p = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "audit-checks-on-hu-mock.py")],
+        capture_output=True,
+        text=True,
+    )
+    print(p.stdout, end="")
+    if p.returncode:
+        errs.append("pass7: audit-checks-on-hu-mock.py failed")
+    return errs, []
+
+
+def pass8_krikun_xray_units() -> tuple[list[str], list[str]]:
+    """Проход 8: инцидент NoNewPrivileges + runas — отдельно жмём krikun-xray."""
+    errs: list[str] = []
+    base = ROOT / "tools/krikun-xray/systemd"
+    for uf in sorted(base.glob("*.service")):
+        text = uf.read_text(encoding="utf-8")
+        if re.search(r"^NoNewPrivileges\s*=\s*yes\b", text, re.M | re.I):
+            errs.append(f"pass8: {uf.name}: NoNewPrivileges=yes (ломает krikun-runas setuid)")
+    return errs, []
+
+
+def pass9_catalog_json() -> tuple[list[str], list[str]]:
+    """Проход 9: dist/catalog не врёт о версиях (если файл есть)."""
+    errs: list[str] = []
+    warns: list[str] = []
+    cat = ROOT / "dist/catalog/catalog.json"
+    if not cat.is_file():
+        warns.append("pass9: нет dist/catalog/catalog.json (только main — ок)")
+        return errs, warns
+    repo = json.loads((ROOT / "mgu-repo.json").read_text())
+    want: dict[str, str] = {}
+    for t in repo.get("tools", []):
+        comp = json.loads((ROOT / t["path"] / "component.json").read_text())
+        want[comp["id"]] = str(comp["version"])
+    for c in repo.get("components", []):
+        want[c["id"]] = json.loads((ROOT / c["path"] / "app.json").read_text())["version"]
+    data = json.loads(cat.read_text())
+    for ent in data.get("components") or data.get("catalog") or []:
+        if not isinstance(ent, dict):
+            continue
+        cid = ent.get("id")
+        if cid not in want:
+            continue
+        av = str(ent.get("version") or ent.get("spec", {}).get("version") or "")
+        blob = ent.get("artifact") or ent.get("spec", {}).get("artifact") or {}
+        name = str(blob.get("name") or "")
+        if av and av != want[cid]:
+            warns.append(f"pass9: catalog {cid} version {av} != repo {want[cid]}")
+        if want[cid] not in name and name:
+            warns.append(f"pass9: catalog artifact {name} не содержит @{want[cid]}")
+    return errs, warns
+
+
+def pass10_check_preflight_hooks() -> tuple[list[str], list[str]]:
+    """Проход 10: full mock check.sh — пути /var/opt через MGU_TOOL_* (инцидент krikun-xray)."""
+    full_mock = frozenset({"krikun-xray"})
+    errs: list[str] = []
+    for comp_path in ROOT.glob("**/component.json"):
+        comp = json.loads(comp_path.read_text())
+        if comp.get("id") not in full_mock:
+            continue
+        for chk in comp.get("check") or []:
+            sh = comp_path.parent / chk
+            if not sh.is_file():
+                continue
+            text = sh.read_text(encoding="utf-8", errors="replace")
+            if "/var/opt/" in text and "MGU_TOOL_CURRENT" not in text:
+                errs.append(
+                    f"pass10: {comp.get('id')} {chk} хардкод /var/opt без MGU_TOOL_CURRENT"
+                )
+    return errs, []
+
+
 def main() -> int:
     all_errs: list[str] = []
     all_warns: list[str] = []
@@ -215,11 +305,25 @@ def main() -> int:
         "Раскладка /var/opt/.../current",
         "Зависимости requires",
         "Smoke assemble / manifest",
+        "systemd (runas / NoNewPrivileges)",
+        "check.sh на mock current/",
+        "krikun-xray systemd (NoNewPrivileges)",
+        "dist/catalog vs repo",
+        "check.sh MGU_TOOL_* hooks",
     )
-    for i, fn in enumerate(
-        (pass1_catalog, pass2_store_download, pass3_install_layout, pass4_dependencies, pass5_runtime_smoke),
-        1,
-    ):
+    steps = (
+        pass1_catalog,
+        pass2_store_download,
+        pass3_install_layout,
+        pass4_dependencies,
+        pass5_runtime_smoke,
+        pass6_systemd,
+        pass7_mock_checks,
+        pass8_krikun_xray_units,
+        pass9_catalog_json,
+        pass10_check_preflight_hooks,
+    )
+    for i, fn in enumerate(steps, 1):
         e, w = fn()
         print(f"=== Проход {i}: {names[i-1]} ===")
         print(f"  errors: {len(e)}, warns: {len(w)}")
@@ -234,7 +338,7 @@ def main() -> int:
         for e in all_errs:
             print(f"  ✗ {e}")
         return 1
-    print("\naudit-store-5pass: OK (5/5)")
+    print(f"\naudit-store: OK ({len(steps)}/{len(steps)} проходов)")
     return 0
 
 

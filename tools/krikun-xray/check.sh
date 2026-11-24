@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: MIT
 # mgu-deploy check: бинарники OK; config — желателен для SOCKS, без него idle допустим.
 set -eu
-D=/var/opt/krikun-xray/current
-CFG=/var/opt/krikun-xray/conf/config.json
+D="${MGU_TOOL_CURRENT:-/var/opt/krikun-xray/current}"
+CFG="${MGU_TOOL_CONF:-/var/opt/krikun-xray/conf/config.json}"
 [ -x "$D/xray" ] || { echo "krikun-xray: нет $D/xray"; exit 1; }
 [ -x "$D/krikun-runas" ] || { echo "krikun-xray: нет $D/krikun-runas"; exit 1; }
 if [ ! -f "$CFG" ]; then

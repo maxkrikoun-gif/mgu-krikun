@@ -103,7 +103,8 @@ def main() -> int:
     node = ROOT / "tools/jap-node22/prebuilt/node"
     if parts:
         total = sum(p.stat().st_size for p in parts)
-        if total < 50_000_000:
+        # gzip-части ~48–49 MiB; полнота — assemble в pass5 (>50 MiB ELF)
+        if total < 40_000_000:
             errs.append(f"jap-node22: node.part.* слишком малы ({total} bytes)")
     elif node.is_file():
         if node.stat().st_size < 50_000_000:

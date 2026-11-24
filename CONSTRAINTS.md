@@ -10,3 +10,4 @@
 6. **RideTube и Xray — отдельные пакеты** в catalog (разные app/tool id), без `requires` друг на друга; связь только через `proxy` в `updater.local.conf`. См. [docs/components-separate.md](docs/components-separate.md).
 7. **Обновление RideTube:** `python3 scripts/fetch-ridetube.py` → `python3 scripts/apply-ridetube-patches.py` → `python3 scripts/verify-ridetube.py` (ожидаемо 2 mismatch по патчам).
 8. **Перед релизом catalog:** чеклист [docs/russian-only.md](docs/russian-only.md) + [docs/first-run-hu.md](docs/first-run-hu.md).
+9. **Перед push в main:** `python3 scripts/preflight-store.py` должен быть зелёным (в т.ч. systemd/runas и mock `check.sh`).
