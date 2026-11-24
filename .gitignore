@@ -26,3 +26,4 @@ scripts/*.local
 .cursor/
 vendor/
 # apps/krikun_seti/package/ — в git (unit-сборка на ГУ)tools/jap-node22/build/
+native/jap-filmix-d/dist/
